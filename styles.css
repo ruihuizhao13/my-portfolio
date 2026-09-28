@@ -4,14 +4,14 @@
 
 :root {
     /* Color Palette */
-    --raspberry: #dd2d4a;
-    --carrot-orange: #e89005;
-    --baltic-blue: #41658a;
-    --crushed-berry: #880d1e;
-    --frosted-mint: #dceed1;
-    --golden-apricot: #df9a57;
-    --hunter-green: #436436;
-    
+    --raspberry: #6B4E9B;       /* plum - main color: buttons, headings accents, links */
+    --carrot-orange: #6F9470;   /* sage - accent: hover color, timeline gradient */
+    --baltic-blue: #4A4577;     /* deep indigo - secondary buttons & links */
+    --crushed-berry: #2E2A47;   /* ink - dark hover states */
+    --frosted-mint: #E9F0E6;    /* pale sage - skill tags, date pills, soft backgrounds */
+    --golden-apricot: #C8D8C4;  /* light sage */
+    --hunter-green: #3F5A3D;    /* deep sage - text on pale sage */
+
     /* Functional Colors */
     --primary: var(--raspberry);
     --secondary: var(--baltic-blue);
@@ -21,12 +21,12 @@
     --text-dark: #2a2a2a;
     --text-light: #666;
     --white: #ffffff;
-    --background: #fafafa;
-    
+    --background: #FAF9FC;
+
     /* Typography */
     --font-headline: 'Lora', serif;
     --font-body: 'Inter', sans-serif;
-    
+
     /* Spacing */
     --container-width: 1200px;
     --section-spacing: 5rem;
