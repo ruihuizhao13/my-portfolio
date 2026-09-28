@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Ruihui Zhao | Instructional Designer</title>
+    <meta name="description" content="Ruihui Zhao is an instructional designer and learning engineer who designs learner-centered, data-informed courses and learning experiences.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- About-page additions (uses the color variables from styles.css) -->
+    <style>
+        /* Intro */
+        .about-text .lead strong { color: var(--primary); }
+        .about-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .about-stats { grid-template-columns: 1fr 1fr; margin-top: 1.5rem; }
+
+        /* Profile photo: medium circle */
+        .about-visual .profile-placeholder {
+            width: 280px; max-width: 80%; aspect-ratio: 1; height: auto;
+            margin: 0 auto 2rem; padding: 0;
+            border-radius: 50%; overflow: hidden;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 4px var(--primary), 0 12px 30px rgba(46, 42, 71, 0.18);
+        }
+        .about-visual .profile-photo {
+            width: 100%; height: 100%; display: block;
+            object-fit: cover; object-position: center top;
+        }
+
+        /* Skills */
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+        /* Journey filters */
+        .journey-intro { text-align: center; color: var(--text-light); max-width: 640px; margin: 0.75rem auto 0; line-height: 1.6; }
+        .journey-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+        .journey-filter {
+            font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+            padding: 0.55rem 1.2rem; border-radius: 25px; cursor: pointer;
+            background: var(--white); color: var(--secondary);
+            border: 2px solid var(--secondary); transition: all 0.2s;
+        }
+        .journey-filter:hover { background: var(--secondary); color: var(--white); }
+        .journey-filter.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
+
+        /* Timeline card details */
+        .timeline-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .timeline-meta .timeline-date { margin-bottom: 0; }
+        .timeline-type {
+            display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
+            text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px;
+        }
+        .type-work     { background: rgba(107, 78, 155, 0.12); color: #4B3470; }
+        .type-teaching { background: #E9F0E6; color: #3F5A3D; }
+        .type-research { background: rgba(74, 69, 119, 0.12); color: #4A4577; }
+        .type-education{ background: #F4E9F0; color: #7A4F6E; }
+
+        .timeline-content h3 { margin-bottom: 0.25rem; }
+        .timeline-org { font-weight: 600; color: var(--secondary) !important; margin-bottom: 0.9rem; }
+        .timeline-summary { margin-bottom: 0.75rem; }
+        .timeline-content ul { margin: 0; padding-left: 1.2rem; color: var(--text-light); line-height: 1.6; }
+        .timeline-content li { margin-bottom: 0.45rem; }
+        .timeline-content li strong { color: var(--text-dark); font-weight: 600; }
+
+        .timeline-item.type-work-item .timeline-dot      { background-color: #6B4E9B; }
+        .timeline-item.type-teaching-item .timeline-dot  { background-color: #6F9470; }
+        .timeline-item.type-research-item .timeline-dot  { background-color: #4A4577; }
+        .timeline-item.type-education-item .timeline-dot { background-color: #B08BA8; }
+        .timeline-item.is-hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .timeline::before { left: 12px; }
+            .timeline-dot { left: 0; }
+            .timeline-item { padding-left: 44px; }
+            .timeline-content { padding: 1.4rem; }
+            .about-stats { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Ruihui Zhao</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">About Me</h1>
+            <p class="page-description">Instructional designer, former classroom teacher, and learning engineer in training</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            <div class="about-grid">
+                <!-- Photo/Visual Section -->
+                <div class="about-visual">
+                    <div class="profile-placeholder">
+                        <img src="profile.png" alt="Profile photo of Ruihui Zhao" class="profile-photo">
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-box">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Years teaching &amp; designing instruction</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label">Florida school placements</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Research projects</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Languages: English &amp; Mandarin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="about-text">
+                    <h2>Hello! 👋</h2>
+                    <p class="lead">
+                        I'm an <strong>Instructional Designer</strong> who turns learning goals into
+                        engaging, accessible, and data-informed learning experiences.
+                    </p>
+                    <p>
+                        I started as a classroom teacher. As a certified 6–12 English Language Arts
+                        teacher with an ESOL endorsement, I designed and taught lessons for middle and
+                        high school learners, including many English Language Learners. That experience
+                        taught me to begin with the learner: what they already know, where they get
+                        stuck, and what keeps them engaged.
+                    </p>
+                    <p>
+                        Today I'm pursuing a Master's in Educational Innovation, Technology, and
+                        Entrepreneurship (Learning Engineering track) at UNC-Chapel Hill. I also work as an
+                        instructional designer for graduate-level data science courses and manage a
+                        Canvas course site for the Shuford Program in Entrepreneurship.
+                    </p>
+                    <p>
+                        My work brings together <strong>learning design</strong>,
+                        <strong>LMS development</strong>, and <strong>learning analytics</strong>. I build
+                        well-structured courses, and I use learner data to find out whether they work.
+                        I'm looking for an instructional design role on a collaborative team where I can
+                        create learning that makes a measurable difference.
+                    </p>
+                    <div class="about-actions">
+                        <a href="portfolio.html" class="btn btn-primary">See My Work</a>
+                        <!-- Upload your CV as a PDF (without home address/phone) and update the file name below -->
+                        <a href="Ruihui_Zhao_Resume.pdf" class="btn btn-secondary" target="_blank" rel="noopener">Download Résumé</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="container">
+            <h2 class="section-title">Skills &amp; Expertise</h2>
+
+            <div class="skills-categories">
+                <div class="skill-category">
+                    <h3>Instructional Design</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Course Design &amp; Alignment</span>
+                        <span class="skill-tag">Learning Objectives</span>
+                        <span class="skill-tag">Assessment Design</span>
+                        <span class="skill-tag">Scaffolding &amp; Differentiation</span>
+                        <span class="skill-tag">Learner-Centered Design</span>
+                        <span class="skill-tag">ELL / ESOL Strategies</span>
+                        <span class="skill-tag">Constructive Feedback</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Learning Technology &amp; Data</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Canvas LMS</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Canva</span>
+                        <span class="skill-tag">Photoshop</span>
+                        <span class="skill-tag">Kahoot!</span>
+                        <span class="skill-tag">Learning Analytics</span>
+                        <span class="skill-tag">Dashboard Design</span>
+                        <span class="skill-tag">Excel</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">MS Office</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Collaboration &amp; Communication</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Stakeholder Collaboration</span>
+                        <span class="skill-tag">Cross-Team Coordination</span>
+                        <span class="skill-tag">Project Documentation</span>
+                        <span class="skill-tag">Student Advising</span>
+                        <span class="skill-tag">Presenting Research</span>
+                        <span class="skill-tag">Bilingual: English &amp; Mandarin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education/Experience Timeline -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">My Journey</h2>
+            <p class="journey-intro">
+                From teaching English in China, to classrooms in Florida, to designing graduate
+                courses at UNC-Chapel Hill.
+            </p>
+
+            <div class="journey-filters" role="group" aria-label="Filter journey">
+                <button class="journey-filter active" data-filter="all" aria-pressed="true">All</button>
+                <button class="journey-filter" data-filter="work" aria-pressed="false">Design &amp; LMS</button>
+                <button class="journey-filter" data-filter="teaching" aria-pressed="false">Teaching</button>
+                <button class="journey-filter" data-filter="research" aria-pressed="false">Research</button>
+                <button class="journey-filter" data-filter="education" aria-pressed="false">Education</button>
+            </div>
+
+            <div class="timeline">
+
+                <!-- Instructional Designer -->
+                <div class="timeline-item type-work-item" data-type="work">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Aug 2026 – Present</span>
+                            <span class="timeline-type type-work">Instructional Design</span>
+                        </div>
+                        <h3>Instructional Designer</h3>
+                        <p class="timeline-org">School of Data and Information, UNC-Chapel Hill</p>
+                        <ul>
+                            <li><strong>Designed and adapted parallel graduate-level courses</strong> by mapping the structure, content, and learning objectives of the Master of Applied Data Science (MADS) program.</li>
+                            <li><strong>Built course milestones and progress checkpoints</strong> that help graduate students track degree progress and finish on time.</li>
+                            <li>Coordinated with IT and Student Government to troubleshoot platform issues, roll out course-site updates, and support student services initiatives.</li>
+                            <li>Advised students on degree requirements, course registration, and academic policies.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Graduate Assistant -->
+                <div class="timeline-item type-work-item" data-type="work">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">May 2026 – Present</span>
+                            <span class="timeline-type type-work">LMS &amp; Course Support</span>
+                        </div>
+                        <h3>Graduate Assistant</h3>
+                        <p class="timeline-org">Shuford Program in Entrepreneurship, UNC-Chapel Hill</p>
+                        <ul>
+                            <li><strong>Manage the Canvas LMS course</strong> for ECON 125: Introduction to Entrepreneurship, including site setup, content organization, and gradebook maintenance.</li>
+                            <li>Grade assignments and give timely, constructive feedback tied to course learning outcomes.</li>
+                            <li>Administer midterm and final exams with attention to academic integrity, accommodations, and accurate grade reporting.</li>
+                            <li>Serve as students' main contact for Canvas navigation, submissions, and grading questions.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Learning Analytics Project -->
+                <div class="timeline-item type-research-item" data-type="research">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Jan 2026 – May 2026</span>
+                            <span class="timeline-type type-research">Learning Analytics</span>
+                        </div>
+                        <h3>SRSD Academic Writing Analytics Dashboard</h3>
+                        <p class="timeline-org">Graduate Researcher · Supervisor: Prof. Matt Bernacki, UNC-Chapel Hill</p>
+                        <ul>
+                            <li><strong>Designed dashboard prototypes and data visualizations</strong> that turn complex learner-behavior data into clear reports for instructors, tutors, and researchers.</li>
+                            <li>Analyzed student activity data across sessions to find trends in engagement, writing-strategy use, and instructional effectiveness.</li>
+                            <li>Built and validated a structured dataset of student activity events. Documented it with data dictionaries, metric definitions, and workflow diagrams.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- M.A. UNC -->
+                <div class="timeline-item type-education-item" data-type="education">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Jan 2026 – Aug 2027 (expected)</span>
+                            <span class="timeline-type type-education">Education</span>
+                        </div>
+                        <h3>M.A., Educational Innovation, Technology &amp; Entrepreneurship</h3>
+                        <p class="timeline-org">University of North Carolina at Chapel Hill · Learning Engineering Track</p>
+                        <p>Relevant coursework: Instructional Design in Education, Learning Design, and Learning Analytics.</p>
+                    </div>
+                </div>
+
+                <!-- Teaching Internship -->
+                <div class="timeline-item type-teaching-item" data-type="teaching">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Aug 2025 – Dec 2025</span>
+                            <span class="timeline-type type-teaching">Teaching</span>
+                        </div>
+                        <h3>Teaching Intern</h3>
+                        <p class="timeline-org">Dr. Kiran C. Patel High School, Tampa, FL</p>
+                        <ul>
+                            <li><strong>Designed and delivered lessons</strong> for Cambridge AICE General Paper and Creative Writing I and III (Honors), with a focus on critical thinking and analytical writing.</li>
+                            <li>Facilitated student-centered Socratic seminars to build discussion, argumentation, and collaborative learning skills.</li>
+                            <li>Led creative writing workshops built around peer review, revision strategies, and presenting original work.</li>
+                            <li>Wrote a parent communication letter that made classroom expectations clear and strengthened school–home connections.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- B.S. USF -->
+                <div class="timeline-item type-education-item" data-type="education">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Jan 2021 – Dec 2025</span>
+                            <span class="timeline-type type-education">Education</span>
+                        </div>
+                        <h3>B.S., Secondary English Education with ESOL Endorsement</h3>
+                        <p class="timeline-org">University of South Florida, Tampa, FL · GPA 3.79</p>
+                        <p class="timeline-summary">Minors in Global Studies in Education and Linguistics. Earned a Florida 6–12 Teacher Certificate in English Language Arts with Reading and ESOL Endorsement.</p>
+                        <ul>
+                            <li>Dean's List (2025) · Undergraduate Summer Research Academy (2024) · International Transfer Student Scholarship (2021)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Field Experience -->
+                <div class="timeline-item type-teaching-item" data-type="teaching">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Aug 2023 – May 2025</span>
+                            <span class="timeline-type type-teaching">Teaching</span>
+                        </div>
+                        <h3>Teaching Assistant, Three Classroom Placements</h3>
+                        <p class="timeline-org">Jefferson High · Strawberry Crest High · Martinez Middle School, Tampa, FL</p>
+                        <ul>
+                            <li><strong>Designed interactive lessons for diverse learners</strong>, such as a comma-splice lesson that used color-coding, Kahoot!, and memes, and guided computer-lab grammar practice.</li>
+                            <li><strong>Created assessment tools</strong>, including a questionnaire on scaffolded writing instruction, to differentiate teaching based on student needs and preferences.</li>
+                            <li>Co-taught senior English Honors and turned creative writing activities into student-driven experiences, with personalized feedback on poems, letters, and short stories.</li>
+                            <li>Planned 6th-grade lessons with guided writing, visual supports, and differentiated readings to engage English Language Learners. Completed a focal-student case study.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Undergraduate Research -->
+                <div class="timeline-item type-research-item" data-type="research">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Dec 2023 – Jul 2024</span>
+                            <span class="timeline-type type-research">Research</span>
+                        </div>
+                        <h3>Undergraduate Researcher</h3>
+                        <p class="timeline-org">University of South Florida</p>
+                        <ul>
+                            <li><strong>Digital Storytelling with Arts Integration in Secondary ELA</strong> (Supervisor: Prof. Kathy L. Bradley-Klug). Designed and presented an original research proposal on how digital storytelling personalizes learning and builds collaborative classrooms.</li>
+                            <li><strong>A Forgotten Chapter in the Anthropology of Education: The AAREA at USF</strong> (Supervisors: Asst. Profs. Kiran Jayaram &amp; Molly Hamm-Rodríguez). Conducted oral-history interviews, archived historical materials, and <strong>presented at the 2024 American Anthropological Association Annual Meeting</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- IELTS TA -->
+                <div class="timeline-item type-teaching-item" data-type="teaching">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">May 2022 – Aug 2022</span>
+                            <span class="timeline-type type-teaching">Teaching</span>
+                        </div>
+                        <h3>IELTS Teaching Assistant</h3>
+                        <p class="timeline-org">Test-Prep Academy, China</p>
+                        <p>Gave targeted vocabulary and grammar instruction to students preparing for the IELTS exam and monitored their progress toward score goals.</p>
+                    </div>
+                </div>
+
+                <!-- Where it started -->
+                <div class="timeline-item type-education-item" data-type="education">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-meta">
+                            <span class="timeline-date">Sep 2017 – Jun 2020</span>
+                            <span class="timeline-type type-education">Where It Started</span>
+                        </div>
+                        <h3>English Education</h3>
+                        <p class="timeline-org">Jinan Preschool Education College, Shandong, China</p>
+                        <p>My start in education. I studied English teaching and earned China's Elementary Teacher Qualification Certificate in English.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Looking for an Instructional Designer?</h2>
+                <p>I'd love to hear about your team and the learners you serve.</p>
+                <a href="contact.html" class="btn btn-light">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h3>Ruihui Zhao</h3>
+                    <p>Designing learning experiences that work for every learner.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="portfolio.html">Portfolio</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ruihui Zhao. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Journey filter -->
+    <script>
+        (function () {
+            var buttons = document.querySelectorAll('.journey-filter');
+            var items = document.querySelectorAll('.timeline-item');
+            buttons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var filter = btn.getAttribute('data-filter');
+                    buttons.forEach(function (b) {
+                        b.classList.toggle('active', b === btn);
+                        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+                    });
+                    items.forEach(function (item) {
+                        var show = filter === 'all' || item.getAttribute('data-type') === filter;
+                        item.classList.toggle('is-hidden', !show);
+                    });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
