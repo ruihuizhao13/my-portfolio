@@ -1,0 +1,41 @@
+/* ===========================================================
+   Soft purple & sage theme
+   In styles.css, REPLACE the whole existing ":root { ... }" block
+   at the top with everything below (both blocks).
+   The variable names stay the same so the rest of the site
+   keeps working; only the colors change.
+   =========================================================== */
+:root {
+    /* Color Palette (old names kept, new colors) */
+    --raspberry: #6B4E9B;       /* plum - main color: buttons, headings accents, links */
+    --carrot-orange: #6F9470;   /* sage - accent: hover color, timeline gradient */
+    --baltic-blue: #4A4577;     /* deep indigo - secondary buttons & links */
+    --crushed-berry: #2E2A47;   /* ink - dark hover states */
+    --frosted-mint: #E9F0E6;    /* pale sage - skill tags, date pills, soft backgrounds */
+    --golden-apricot: #C8D8C4;  /* light sage */
+    --hunter-green: #3F5A3D;    /* deep sage - text on pale sage */
+
+    /* Functional Colors */
+    --primary: var(--raspberry);
+    --secondary: var(--baltic-blue);
+    --accent: var(--carrot-orange);
+    --dark: var(--crushed-berry);
+    --light: var(--frosted-mint);
+    --text-dark: #2a2a2a;
+    --text-light: #666;
+    --white: #ffffff;
+    --background: #FAF9FC;
+
+    /* Typography */
+    --font-headline: 'Lora', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Spacing */
+    --container-width: 1200px;
+    --section-spacing: 5rem;
+}
+
+/* The one hard-coded red in styles.css (button hover glow) */
+.btn-primary:hover {
+    box-shadow: 0 5px 15px rgba(107, 78, 155, 0.3);
+}
