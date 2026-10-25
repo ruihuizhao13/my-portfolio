@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ELL Writing Center — Interactive Demo | Ruihui Zhao</title>
+<style>
+  :root {
+    --planning:#3a6ea5;
+    --writing:#d9a521;
+    --revision:#b14b4b;
+    --metacog:#2f8f8a;
+    --social:#86b4b0;
+    --system:#5b6770;
+    --bg:#fafaf7;
+    --panel:#ffffff;
+    --ink:#222;
+    --muted:#6b6b6b;
+    --rule:#e6e3da;
+    --accent:#d9a521;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:"Calibri","Helvetica Neue",Arial,sans-serif;
+    color:var(--ink);background:var(--bg);font-size:14px;line-height:1.45;
+  }
+  header.topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;background:#1f2a3a;color:#fff;border-bottom:3px solid var(--accent);
+  }
+  header.topbar h1{
+    margin:0;font-family:Georgia,serif;font-style:italic;font-weight:normal;font-size:20px;
+  }
+  header.topbar .crumb{font-size:12px;color:#cdd5e0;letter-spacing:.04em;text-transform:uppercase}
+  nav.tabs{
+    display:flex;background:#fff;border-bottom:1px solid var(--rule);padding:0 24px;gap:0;
+  }
+  nav.tabs button{
+    background:transparent;border:none;padding:12px 18px;font:inherit;color:var(--muted);
+    cursor:pointer;border-bottom:3px solid transparent;letter-spacing:.02em;
+  }
+  nav.tabs button.active{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+  nav.tabs button:hover{color:var(--ink)}
+  main{padding:24px;max-width:1400px;margin:0 auto}
+  .view{display:none}
+  .view.active{display:block}
+  h2.section{
+    font-family:Georgia,serif;font-style:italic;font-weight:normal;
+    font-size:24px;margin:0 0 4px 0;color:#1f2a3a;
+  }
+  p.lede{color:var(--muted);margin:0 0 18px 0;max-width:780px}
+  /* ---------- Login view ---------- */
+  .login-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}
+  .student-card{
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+    padding:18px;cursor:pointer;transition:transform .1s,border-color .1s;
+    border-top:4px solid var(--planning);
+  }
+  .student-card:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .student-card .id{
+    font-family:Georgia,serif;font-size:28px;color:#1f2a3a;font-weight:bold;
+  }
+  .student-card .prof{
+    display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;
+    text-transform:uppercase;letter-spacing:.06em;margin-top:6px;
+  }
+  .prof.adv{background:#e3edf7;color:#3a6ea5}
+  .prof.int{background:#fff3d6;color:#a07a14}
+  .prof.beg{background:#f8dede;color:#8a3a3a}
+  .student-card .meta{margin-top:10px;font-size:12px;color:var(--muted)}
+  /* ---------- Workspace view ---------- */
+  .workspace{display:grid;grid-template-columns:240px 1fr 360px;gap:16px}
+  .panel{
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:14px;
+  }
+  .panel h3{
+    margin:0 0 10px 0;font-family:Georgia,serif;font-style:italic;font-size:15px;
+    color:#1f2a3a;font-weight:normal;border-bottom:1px solid var(--rule);padding-bottom:6px;
+  }
+  .tool-btn{
+    display:flex;align-items:center;gap:8px;width:100%;text-align:left;
+    background:#fff;border:1px solid var(--rule);border-radius:4px;
+    padding:8px 10px;margin-bottom:6px;cursor:pointer;font:inherit;font-size:13px;
+  }
+  .tool-btn:hover{background:#f4f1e8;border-color:var(--accent)}
+  .tool-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .editor-wrap{display:flex;flex-direction:column;gap:10px}
+  .editor-meta{
+    display:flex;justify-content:space-between;font-size:12px;color:var(--muted);
+    padding:6px 4px;
+  }
+  textarea#draft{
+    width:100%;min-height:380px;border:1px solid var(--rule);border-radius:6px;
+    padding:14px;font:14px/1.6 Georgia,serif;background:#fff;resize:vertical;
+  }
+  textarea#draft:focus{outline:none;border-color:var(--accent)}
+  .goal-strip{
+    background:#fffaeb;border-left:4px solid var(--accent);padding:10px 12px;
+    font-size:13px;color:#5a4a14;border-radius:4px;
+  }
+  .goal-strip.empty{color:#999;background:#f6f5ef;border-left-color:var(--rule)}
+  /* Live log */
+  .log-table{font-size:11.5px;border-collapse:collapse;width:100%}
+  .log-table th{
+    text-align:left;font-weight:normal;font-size:10px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.05em;padding:4px 6px;
+    border-bottom:1px solid var(--rule);
+  }
+  .log-table td{padding:5px 6px;vertical-align:top;border-bottom:1px dotted #eee}
+  .log-table tr:last-child td{animation:flash 1s ease}
+  @keyframes flash{0%{background:#fff3d6}100%{background:transparent}}
+  .cat-pill{
+    display:inline-block;width:7px;height:7px;border-radius:50%;
+    margin-right:5px;vertical-align:middle;
+  }
+  .log-scroll{max-height:520px;overflow-y:auto}
+  .log-foot{
+    display:flex;justify-content:space-between;font-size:11px;color:var(--muted);
+    margin-top:8px;padding-top:8px;border-top:1px solid var(--rule);
+  }
+  /* ---------- Analytics ---------- */
+  .metrics-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;
+  }
+  .metric-card{
+    background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+    padding:14px;border-top:4px solid var(--planning);
+  }
+  .metric-card.writing{border-top-color:var(--writing)}
+  .metric-card.revision{border-top-color:var(--revision)}
+  .metric-card.metacog{border-top-color:var(--metacog)}
+  .metric-card.social{border-top-color:var(--social)}
+  .metric-card .label{
+    font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+  }
+  .metric-card .value{
+    font-family:Georgia,serif;font-size:32px;font-weight:bold;color:#1f2a3a;
+    line-height:1.1;margin:6px 0 2px;
+  }
+  .metric-card .formula{font-size:11px;color:var(--muted);font-style:italic}
+  .quality-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;
+  }
+  .quality-card{
+    background:#fff;border:1px solid var(--rule);border-radius:6px;padding:12px;
+  }
+  .quality-card .label{font-size:11px;color:var(--muted);text-transform:uppercase}
+  .quality-card .value{
+    font-family:Georgia,serif;font-size:22px;color:#1f2a3a;font-weight:bold;margin-top:4px;
+  }
+  .timeline{
+    background:#fff;border:1px solid var(--rule);border-radius:6px;padding:14px;
+    margin-bottom:20px;
+  }
+  .timeline h3{
+    margin:0 0 12px 0;font-family:Georgia,serif;font-style:italic;
+    font-size:15px;font-weight:normal;color:#1f2a3a;
+  }
+  .tl-bar{
+    position:relative;height:46px;background:#f6f5ef;border-radius:4px;overflow:hidden;
+  }
+  .tl-evt{
+    position:absolute;top:8px;height:30px;width:14px;border-radius:2px;cursor:default;
+  }
+  .tl-evt:hover{outline:2px solid #1f2a3a}
+  .legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+  .legend span{display:flex;align-items:center;gap:5px}
+  .legend i{width:10px;height:10px;display:inline-block;border-radius:2px}
+  /* generic */
+  .empty-state{
+    padding:40px;text-align:center;color:var(--muted);
+    border:1px dashed var(--rule);border-radius:6px;
+  }
+  button.primary{
+    background:var(--accent);color:#fff;border:none;padding:8px 16px;
+    border-radius:4px;cursor:pointer;font:inherit;font-weight:600;
+  }
+  button.primary:hover{background:#b88a18}
+  .session-status{
+    display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);
+  }
+  .pulse{
+    width:8px;height:8px;background:#3a8c5f;border-radius:50%;
+    animation:pulse 1.5s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(58,140,95,.6)}
+    50%{box-shadow:0 0 0 6px rgba(58,140,95,0)}
+  }
+  dialog{
+    border:1px solid var(--rule);border-radius:6px;padding:20px;max-width:420px;
+  }
+  dialog input,dialog select,dialog textarea{
+    width:100%;padding:8px;border:1px solid var(--rule);border-radius:4px;
+    font:inherit;margin-top:4px;
+  }
+  dialog label{font-size:12px;color:var(--muted);display:block;margin-top:10px}
+  dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+  dialog button{
+    background:#fff;border:1px solid var(--rule);padding:7px 14px;
+    border-radius:4px;cursor:pointer;font:inherit;
+  }
+  dialog button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div>
+    <h1>ELL Writing Center</h1>
+    <div class="crumb">Self-Regulated Writing &middot; Process &amp; Outcome Analytics</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="session-status" id="status">Not signed in</div>
+    <a href="project-report-1.html" style="color:#cdd5e0;font-size:12px;text-decoration:none;border:1px solid #4a5568;padding:5px 10px;border-radius:4px">← Case study</a>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button data-view="login" class="active">1. Sign in</button>
+  <button data-view="workspace">2. Writing workspace</button>
+  <button data-view="log">3. Live event log</button>
+  <button data-view="analytics">4. Analytics dashboard</button>
+</nav>
+
+<main>
+
+<!-- ============== LOGIN ============== -->
+<section class="view active" id="view-login">
+  <h2 class="section">Sign in to your writing session</h2>
+  <p class="lede">
+    Choose a student profile to start a logged session. Each click below issues a
+    <code>StartSession</code> event, opens a new <code>sessionID</code>, and begins
+    capturing every action against the 12-column schema.
+  </p>
+  <div class="login-grid" id="loginGrid"></div>
+</section>
+
+<!-- ============== WORKSPACE ============== -->
+<section class="view" id="view-workspace">
+  <h2 class="section">Writing workspace</h2>
+  <p class="lede">
+    Each tool action is captured as a discrete event. Pauses between keystrokes are
+    measured automatically and stored as <code>pauseSeconds</code>. Type in the editor
+    to fire <code>WriteText</code> / <code>ReviseText</code> events.
+  </p>
+  <div class="workspace">
+    <!-- Tool palette -->
+    <div class="panel">
+      <h3>SRL Tools</h3>
+      <button class="tool-btn" data-tool="SetGoal"><span class="dot" style="background:var(--planning)"></span>Set goal</button>
+      <button class="tool-btn" data-tool="PlanOutline"><span class="dot" style="background:var(--planning)"></span>Plan outline</button>
+      <button class="tool-btn" data-tool="SearchResource"><span class="dot" style="background:var(--metacog)"></span>Search resource</button>
+      <button class="tool-btn" data-tool="OpenResource"><span class="dot" style="background:var(--metacog)"></span>Open resource</button>
+      <button class="tool-btn" data-tool="HighlightText"><span class="dot" style="background:var(--metacog)"></span>Highlight text</button>
+      <button class="tool-btn" data-tool="CheckRubric"><span class="dot" style="background:var(--metacog)"></span>Check rubric</button>
+      <button class="tool-btn" data-tool="SelfEvaluate"><span class="dot" style="background:var(--metacog)"></span>Self evaluate</button>
+      <button class="tool-btn" data-tool="RequestFeedback"><span class="dot" style="background:var(--social)"></span>Request feedback</button>
+      <button class="tool-btn" data-tool="SentimentTag"><span class="dot" style="background:var(--writing)"></span>Tag sentiment</button>
+      <button class="tool-btn" data-tool="EndSession" style="margin-top:14px;border-color:var(--revision);color:var(--revision)">End session</button>
+    </div>
+    <!-- Editor -->
+    <div class="editor-wrap">
+      <div class="goal-strip empty" id="goalStrip">No goal set yet — click "Set goal" to begin planning.</div>
+      <textarea id="draft" placeholder="Start drafting your essay here. Each keystroke is captured as a WriteText event; deletions are logged as ReviseText with a negative charCount."></textarea>
+      <div class="editor-meta">
+        <span><b id="wordCount">0</b> words &middot; <b id="charLive">0</b> chars &middot; pause <b id="pauseLive">0</b>s</span>
+        <span id="sessionLabel">No active session</span>
+      </div>
+    </div>
+    <!-- Mini live log -->
+    <div class="panel">
+      <h3>Last 8 events</h3>
+      <div id="miniLog" style="font-size:12px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== LIVE LOG ============== -->
+<section class="view" id="view-log">
+  <h2 class="section">Live event log</h2>
+  <p class="lede">
+    The full 12-column CSV stream — exactly as it would import into Excel or Python.
+    Newest event is at the bottom and flashes briefly. You can export the current log
+    as a <code>.csv</code> file.
+  </p>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <div class="legend">
+      <span><i style="background:var(--planning)"></i>Planning</span>
+      <span><i style="background:var(--writing)"></i>Writing</span>
+      <span><i style="background:var(--revision)"></i>Revision</span>
+      <span><i style="background:var(--metacog)"></i>Metacog</span>
+      <span><i style="background:var(--social)"></i>Social</span>
+      <span><i style="background:var(--system)"></i>System</span>
+    </div>
+    <div>
+      <button class="primary" id="exportCsv">Export CSV</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="log-scroll">
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>timestamp</th><th>studentID</th><th>sessionID</th><th>eventType</th>
+            <th>eventDetail</th><th>charCount</th><th>pauseSec</th>
+            <th>resourceURL</th><th>rubric</th><th>feedback</th><th>sentiment</th>
+          </tr>
+        </thead>
+        <tbody id="fullLog"></tbody>
+      </table>
+    </div>
+    <div class="log-foot">
+      <span><b id="logCount">0</b> events recorded</span>
+      <span>Schema v1.0 &middot; 12 columns &middot; ISO 8601 UTC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ANALYTICS ============== -->
+<section class="view" id="view-analytics">
+  <h2 class="section">Analytics dashboard</h2>
+  <p class="lede">
+    Process and outcome metrics computed live from the event stream using the
+    formulas defined in your analytic-rules slide.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="label">Planning Score</div>
+      <div class="value" id="mPlan">0</div>
+      <div class="formula"># SetGoal + PlanOutline</div>
+    </div>
+    <div class="metric-card writing">
+      <div class="label">Translation Fluency</div>
+      <div class="value" id="mFluency">0.0</div>
+      <div class="formula">words ÷ writing-min</div>
+    </div>
+    <div class="metric-card revision">
+      <div class="label">Revision Score</div>
+      <div class="value" id="mRevision">0</div>
+      <div class="formula">|Σ negative charCount|</div>
+    </div>
+    <div class="metric-card metacog">
+      <div class="label">Metacog Score</div>
+      <div class="value" id="mMeta">0</div>
+      <div class="formula"># Rubric + Highlight + SelfEval</div>
+    </div>
+    <div class="metric-card social">
+      <div class="label">Social Support</div>
+      <div class="value" id="mSocial">0</div>
+      <div class="formula"># Request + Receive Feedback</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-style:italic;font-weight:normal;color:#1f2a3a;margin:8px 0">Writing-quality metrics</h3>
+  <div class="quality-grid">
+    <div class="quality-card"><div class="label">Word Count</div><div class="value" id="qWords">0</div></div>
+    <div class="quality-card"><div class="label">TTR (lex. diversity)</div><div class="value" id="qTTR">0.00</div></div>
+    <div class="quality-card"><div class="label">Avg sentence length</div><div class="value" id="qASL">0.0</div></div>
+    <div class="quality-card"><div class="label">Grammar errors (mock)</div><div class="value" id="qGE">0</div></div>
+  </div>
+
+  <div class="timeline">
+    <h3>Session timeline</h3>
+    <div class="tl-bar" id="tlBar"></div>
+    <div class="legend" style="margin-top:10px">
+      <span><i style="background:var(--planning)"></i>Planning</span>
+      <span><i style="background:var(--writing)"></i>Writing</span>
+      <span><i style="background:var(--revision)"></i>Revision</span>
+      <span><i style="background:var(--metacog)"></i>Metacog</span>
+      <span><i style="background:var(--social)"></i>Social</span>
+      <span><i style="background:var(--system)"></i>System</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Modals ===== -->
+<dialog id="dlg">
+  <h3 id="dlgTitle" style="margin-top:0;font-family:Georgia,serif;font-style:italic;font-weight:normal"></h3>
+  <div id="dlgBody"></div>
+  <div class="actions">
+    <button id="dlgCancel">Cancel</button>
+    <button class="primary" id="dlgOk">Confirm</button>
+  </div>
+</dialog>
+
+<script>
+/* =============== Data model =============== */
+const STUDENTS = [
+  {id:"S1",prof:"Advanced",prof_class:"adv",last:"2026-04-10",sessions:3},
+  {id:"S2",prof:"Advanced",prof_class:"adv",last:"2026-04-12",sessions:2},
+  {id:"S3",prof:"Intermediate",prof_class:"int",last:"2026-04-14",sessions:2},
+  {id:"S4",prof:"Beginner",prof_class:"beg",last:"2026-04-15",sessions:1},
+];
+const CATEGORY = {
+  StartSession:"system", EndSession:"system",
+  SetGoal:"planning", PlanOutline:"planning",
+  WriteText:"writing", SentimentTag:"writing",
+  ReviseText:"revision",
+  SearchResource:"metacog", OpenResource:"metacog",
+  HighlightText:"metacog", CheckRubric:"metacog", SelfEvaluate:"metacog",
+  RequestFeedback:"social", ReceiveFeedback:"social",
+};
+const CAT_COLOR = {
+  planning:"#3a6ea5", writing:"#d9a521", revision:"#b14b4b",
+  metacog:"#2f8f8a", social:"#86b4b0", system:"#5b6770",
+};
+let state = {
+  student:null, sessionId:null, sessionStart:null,
+  log:[], lastEventAt:null, lastDraft:"", goal:"",
+  writingSeconds:0, totalWords:0,
+};
+
+/* =============== Helpers =============== */
+const $ = q => document.querySelector(q);
+const $$ = q => Array.from(document.querySelectorAll(q));
+const isoNow = () => new Date().toISOString().replace(/\.\d+Z$/,"Z");
+
+function log(eventType, detail="", extras={}){
+  if(!state.student){ alert("Sign in first."); return; }
+  const now = new Date();
+  const pauseSec = state.lastEventAt ? Math.round((now - state.lastEventAt)/1000) : 0;
+  const evt = {
+    timestamp: isoNow(),
+    studentID: state.student.id,
+    sessionID: state.sessionId,
+    eventType,
+    eventDetail: detail,
+    textDelta: extras.textDelta || "",
+    charCount: extras.charCount ?? "",
+    pauseSeconds: pauseSec,
+    resourceURL: extras.resourceURL || "",
+    rubricCheck: extras.rubricCheck ?? "",
+    feedbackTarget: extras.feedbackTarget || "",
+    sentimentTag: extras.sentimentTag || "",
+  };
+  state.log.push(evt);
+  state.lastEventAt = now;
+  renderFullLog();
+  renderMiniLog();
+  renderAnalytics();
+}
+
+/* =============== Login =============== */
+function renderLogin(){
+  $("#loginGrid").innerHTML = STUDENTS.map(s => `
+    <div class="student-card" data-id="${s.id}">
+      <div class="id">${s.id}</div>
+      <div class="prof ${s.prof_class}">${s.prof}</div>
+      <div class="meta">Last session: ${s.last}<br>${s.sessions} prior sessions</div>
+    </div>
+  `).join("");
+  $$(".student-card").forEach(c => c.addEventListener("click", () => signIn(c.dataset.id)));
+}
+
+function signIn(id){
+  const s = STUDENTS.find(x => x.id === id);
+  state.student = s;
+  const ts = new Date();
+  state.sessionId = `${s.id}_sess${s.sessions+1}`;
+  state.sessionStart = ts;
+  state.lastEventAt = null;
+  state.log = [];
+  state.goal = "";
+  state.lastDraft = "";
+  $("#draft").value = "";
+  $("#goalStrip").className = "goal-strip empty";
+  $("#goalStrip").textContent = 'No goal set yet — click "Set goal" to begin planning.';
+  $("#sessionLabel").textContent = `Session ${state.sessionId}`;
+  $("#status").innerHTML = `<span class="pulse"></span> ${s.id} (${s.prof}) &middot; ${state.sessionId}`;
+  log("StartSession", `Start of writing session ${state.sessionId}`);
+  switchView("workspace");
+}
+
+/* =============== Tabs =============== */
+function switchView(name){
+  $$("nav.tabs button").forEach(b => b.classList.toggle("active", b.dataset.view === name));
+  $$(".view").forEach(v => v.classList.toggle("active", v.id === `view-${name}`));
+}
+$$("nav.tabs button").forEach(b => b.addEventListener("click", () => switchView(b.dataset.view)));
+
+/* =============== Workspace =============== */
+const draft = $("#draft");
+let writingTimer = null;
+draft.addEventListener("input", () => {
+  if(!state.student) return;
+  const cur = draft.value;
+  const delta = cur.length - state.lastDraft.length;
+  if(delta > 0){
+    log("WriteText", `Typed: '${cur.slice(state.lastDraft.length, state.lastDraft.length+30).trim()}…'`,
+      {textDelta: cur.slice(state.lastDraft.length, state.lastDraft.length+60), charCount: delta});
+  } else if(delta < 0){
+    log("ReviseText", `Deleted ${Math.abs(delta)} character${Math.abs(delta)>1?'s':''}`,
+      {charCount: delta});
+  }
+  state.lastDraft = cur;
+  $("#wordCount").textContent = (cur.trim().match(/\S+/g) || []).length;
+  $("#charLive").textContent = cur.length;
+});
+setInterval(() => {
+  if(state.student && state.lastEventAt){
+    const sec = Math.round((new Date() - state.lastEventAt)/1000);
+    $("#pauseLive").textContent = sec;
+  }
+},500);
+
+$$(".tool-btn").forEach(btn => {
+  btn.addEventListener("click", () => handleTool(btn.dataset.tool));
+});
+
+function handleTool(t){
+  if(!state.student){ alert("Sign in first."); switchView("login"); return; }
+  if(t === "SetGoal"){
+    openDialog("Set writing goal","<label>What's your goal for this session?<input id='gIn' placeholder='Write a 4-part outline for essay'/></label>",
+      () => {
+        const v = $("#gIn").value || "Write a 4-part outline for essay";
+        state.goal = v;
+        $("#goalStrip").className = "goal-strip";
+        $("#goalStrip").textContent = "Goal: " + v;
+        log("SetGoal", v);
+      });
+  } else if(t === "PlanOutline"){
+    openDialog("Plan outline","<label>List your section headings<textarea id='gIn' rows='4' placeholder='Intro, Causes, Solutions, Conclusion'></textarea></label>",
+      () => {
+        const v = $("#gIn").value || "Intro, Causes, Solutions, Conclusion";
+        log("PlanOutline", v, {charCount: v.length});
+      });
+  } else if(t === "SearchResource"){
+    openDialog("Search resource","<label>Search query<input id='gIn' placeholder='climate action plan'/></label>",
+      () => {
+        const v = $("#gIn").value || "climate action plan";
+        log("SearchResource", v, {charCount: v.length});
+      });
+  } else if(t === "OpenResource"){
+    log("OpenResource","Opened EPA climate report",{resourceURL:"http://epa.gov/climate-report",charCount:10});
+  } else if(t === "HighlightText"){
+    log("HighlightText","Highlighted selection in draft",{charCount: 15});
+  } else if(t === "CheckRubric"){
+    openDialog("Check rubric","<label>Rate organization (1–5)<select id='gIn'><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option></select></label>",
+      () => {
+        const v = parseInt($("#gIn").value);
+        log("CheckRubric", `Organization: ${v}`, {rubricCheck: v});
+      });
+  } else if(t === "SelfEvaluate"){
+    log("SelfEvaluate","Self-rated draft progress");
+  } else if(t === "RequestFeedback"){
+    openDialog("Request feedback","<label>Send draft to<select id='gIn'><option>peer</option><option>tutor</option><option>writing center</option></select></label>",
+      () => {
+        const v = $("#gIn").value;
+        log("RequestFeedback", `Requested feedback from ${v}`, {feedbackTarget: v, charCount: 100});
+      });
+  } else if(t === "SentimentTag"){
+    openDialog("Tag sentiment","<label>How are you feeling about your writing?<select id='gIn'><option>positive</option><option>neutral</option><option>frustrated</option></select></label>",
+      () => {
+        const v = $("#gIn").value;
+        log("SentimentTag", `User sentiment: ${v}`, {sentimentTag: v, charCount: 30});
+      });
+  } else if(t === "EndSession"){
+    if(confirm("End the writing session? You can sign back in to start a new session.")){
+      log("EndSession", `Final draft: ${(draft.value||'').slice(-40)}`, {charCount: draft.value.length});
+      state.student = null;
+      $("#status").textContent = "Not signed in";
+      switchView("analytics");
+    }
+  }
+}
+
+/* =============== Dialog =============== */
+const dlg = $("#dlg");
+let dlgOk = null;
+function openDialog(title, body, onOk){
+  $("#dlgTitle").textContent = title;
+  $("#dlgBody").innerHTML = body;
+  dlgOk = onOk;
+  dlg.showModal();
+  setTimeout(()=>{ const f = $("#gIn"); if(f) f.focus(); }, 50);
+}
+$("#dlgCancel").addEventListener("click", ()=>dlg.close());
+$("#dlgOk").addEventListener("click", ()=>{ if(dlgOk) dlgOk(); dlg.close(); });
+
+/* =============== Log rendering =============== */
+function fmtTime(iso){ return iso.slice(11,19); }
+function catOf(t){ return CATEGORY[t] || "system"; }
+
+function renderFullLog(){
+  const tb = $("#fullLog");
+  tb.innerHTML = state.log.map(e => `
+    <tr>
+      <td>${e.timestamp.replace('T',' ').replace('Z','')}</td>
+      <td>${e.studentID}</td><td>${e.sessionID}</td>
+      <td><span class="cat-pill" style="background:${CAT_COLOR[catOf(e.eventType)]}"></span>${e.eventType}</td>
+      <td>${e.eventDetail}</td>
+      <td style="text-align:right">${e.charCount}</td>
+      <td style="text-align:right">${e.pauseSeconds}</td>
+      <td style="font-size:10px;color:#888">${e.resourceURL}</td>
+      <td>${e.rubricCheck}</td>
+      <td>${e.feedbackTarget}</td>
+      <td>${e.sentimentTag}</td>
+    </tr>
+  `).join("");
+  $("#logCount").textContent = state.log.length;
+  // auto-scroll
+  const sc = $(".log-scroll");
+  if(sc) sc.scrollTop = sc.scrollHeight;
+}
+function renderMiniLog(){
+  const last = state.log.slice(-8).reverse();
+  $("#miniLog").innerHTML = last.map(e => `
+    <div style="padding:5px 0;border-bottom:1px dotted #eee">
+      <span class="cat-pill" style="background:${CAT_COLOR[catOf(e.eventType)]}"></span>
+      <b>${e.eventType}</b>
+      <span style="color:#888;font-size:10px"> ${fmtTime(e.timestamp)}</span>
+      <div style="font-size:11px;color:#555;margin-left:14px">${e.eventDetail.slice(0,38)}${e.eventDetail.length>38?'…':''}</div>
+    </div>
+  `).join("") || '<div style="color:#999;font-size:12px">No events yet.</div>';
+}
+
+/* =============== Analytics =============== */
+function renderAnalytics(){
+  const L = state.log;
+  const count = t => L.filter(e => e.eventType === t).length;
+  const planning = count("SetGoal") + count("PlanOutline");
+  const meta = count("CheckRubric") + count("HighlightText") + count("SelfEvaluate");
+  const social = count("RequestFeedback") + count("ReceiveFeedback");
+  const writeEvts = L.filter(e => e.eventType === "WriteText");
+  const revEvts = L.filter(e => e.eventType === "ReviseText");
+  const totalWritten = writeEvts.reduce((s,e)=>s+(parseInt(e.charCount)||0),0);
+  const revAbs = Math.abs(revEvts.reduce((s,e)=>s+(parseInt(e.charCount)||0),0));
+  // Estimate writing time from sum of pauseSeconds on WriteText events (capped @ 120s/event to ignore long breaks)
+  const writingSeconds = writeEvts.reduce((s,e)=>s+Math.min(parseInt(e.pauseSeconds)||0,120),0) || 1;
+  const draftText = $("#draft").value || "";
+  const words = (draftText.trim().match(/\S+/g) || []);
+  const wordsCount = words.length;
+  const fluency = wordsCount === 0 ? 0 : (wordsCount / (writingSeconds/60));
+  const uniq = new Set(words.map(w=>w.toLowerCase().replace(/[^a-z']/g,""))).size;
+  const ttr = wordsCount === 0 ? 0 : uniq/wordsCount;
+  const sents = (draftText.match(/[.!?]+/g) || []).length || (wordsCount?1:0);
+  const asl = sents ? wordsCount/sents : 0;
+  const grammarMock = Math.max(0, Math.round(wordsCount * 0.04) - revEvts.length);
+  $("#mPlan").textContent = planning;
+  $("#mFluency").textContent = fluency.toFixed(1);
+  $("#mRevision").textContent = revAbs;
+  $("#mMeta").textContent = meta;
+  $("#mSocial").textContent = social;
+  $("#qWords").textContent = wordsCount;
+  $("#qTTR").textContent = ttr.toFixed(2);
+  $("#qASL").textContent = asl.toFixed(1);
+  $("#qGE").textContent = grammarMock;
+  // timeline
+  if(L.length){
+    const t0 = new Date(L[0].timestamp).getTime();
+    const tN = new Date(L[L.length-1].timestamp).getTime();
+    const span = Math.max(tN - t0, 1);
+    $("#tlBar").innerHTML = L.map(e => {
+      const t = new Date(e.timestamp).getTime();
+      const left = ((t - t0) / span) * 96 + 1;
+      const cat = catOf(e.eventType);
+      return `<div class="tl-evt" title="${e.eventType} • ${e.eventDetail}" style="left:${left}%;background:${CAT_COLOR[cat]}"></div>`;
+    }).join("");
+  } else {
+    $("#tlBar").innerHTML = '';
+  }
+}
+
+/* =============== CSV Export =============== */
+$("#exportCsv").addEventListener("click", () => {
+  if(!state.log.length){ alert("Nothing to export yet."); return; }
+  const cols = ["timestamp","studentID","sessionID","eventType","eventDetail","textDelta","charCount","pauseSeconds","resourceURL","rubricCheck","feedbackTarget","sentimentTag"];
+  const esc = v => `"${String(v).replace(/"/g,'""')}"`;
+  const csv = [cols.join(","), ...state.log.map(r => cols.map(c=>esc(r[c]??"")).join(","))].join("\n");
+  const blob = new Blob([csv], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${state.sessionId || "session"}_log.csv`;
+  a.click();
+});
+
+/* =============== Init =============== */
+renderLogin();
+renderFullLog();
+renderMiniLog();
+renderAnalytics();
+</script>
+</body>
+</html>

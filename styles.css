@@ -1428,3 +1428,463 @@ section {
         padding: 0 1.5rem;
     }
 }
+
+/* ===========================
+   ELL WRITING CENTER CASE STUDY
+   (project-report-1.html)
+   Event colors match the prototype's SRL categories.
+   =========================== */
+
+.k-plan   { --k: #3a6ea5; }
+.k-write  { --k: #d9a521; }
+.k-rev    { --k: #b14b4b; }
+.k-meta   { --k: #2f8f8a; }
+.k-social { --k: #86b4b0; }
+.k-sys    { --k: #5b6770; }
+
+.ell-hero-actions {
+    margin-top: 2.5rem;
+}
+
+.ell-inline-link {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ell-caption {
+    font-size: 0.85rem !important;
+    color: var(--text-light);
+    margin-top: 0.75rem;
+}
+
+/* Session strip */
+.ell-strip {
+    border: 1px solid #e6e3ee;
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem 1rem;
+    margin-top: 1.5rem;
+    background: var(--background);
+}
+
+.ell-strip-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.report-section .ell-strip-head h4 {
+    margin: 0;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.ell-strip-head span {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.ell-track {
+    position: relative;
+    height: 56px;
+    margin: 1rem 0 0.4rem;
+    background: #eeedf3;
+    border-radius: 6px;
+}
+
+.ell-tick {
+    position: absolute;
+    top: 10px;
+    width: 14px;
+    height: 36px;
+    margin-left: -7px;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    background: var(--k);
+    cursor: pointer;
+    transform-origin: bottom;
+    animation: ellRise 0.5s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.ell-tick:hover,
+.ell-tick[aria-pressed="true"] {
+    outline: 2px solid var(--dark);
+    outline-offset: 2px;
+}
+
+.ell-tick:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+@keyframes ellRise {
+    from { transform: scaleY(0.15); }
+    to   { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ell-tick { animation: none; }
+}
+
+.ell-axis {
+    display: flex;
+    justify-content: space-between;
+    font: 400 0.72rem 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    color: var(--text-light);
+}
+
+.ell-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.ell-legend i,
+.ell-row i,
+.ell-table i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 0.4rem;
+    vertical-align: -1px;
+    background: var(--k);
+}
+
+.ell-readout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    margin-top: 1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid #e6e3ee;
+}
+
+.ell-row {
+    font: 0.8rem/1.75 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.ell-row b { font-weight: 500; }
+
+.report-section p.ell-why {
+    font-size: 0.92rem;
+    margin: 0;
+}
+
+.ell-why strong { color: var(--dark); }
+
+/* Challenge cards */
+.ell-grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.ell-card {
+    border: 1px solid #e6e3ee;
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+}
+
+.report-section .ell-card h4 { margin: 0 0 0.35rem; }
+.report-section .ell-card p { margin: 0; font-size: 0.93rem; line-height: 1.6; }
+
+/* Theory map */
+.ell-phases {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1.3fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.ell-phase {
+    border: 1px solid #e6e3ee;
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.ell-phase header {
+    padding: 0.75rem 1rem;
+    background: var(--frosted-mint);
+    color: var(--hunter-green);
+}
+
+.ell-phase header strong {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: 1.05rem;
+    color: var(--dark);
+}
+
+.ell-phase header small { font-size: 0.78rem; }
+
+.report-section .ell-phase ol {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.report-section .ell-phase li {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    background: var(--background);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--text-dark);
+}
+
+.ell-phase li span {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.ell-phase li small {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+/* Event log table */
+.ell-scroll {
+    overflow-x: auto;
+    border: 1px solid #e6e3ee;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.ell-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+}
+
+.ell-table th,
+.ell-table td {
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #eeedf3;
+    white-space: nowrap;
+}
+
+.ell-table th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    background: var(--background);
+}
+
+.ell-table tr:last-child td { border-bottom: 0; }
+
+.ell-table .mono,
+.ell-table .num {
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: 0.8rem;
+}
+
+.ell-table .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Rules */
+.ell-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.ell-rule {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 1.25rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid #e6e3ee;
+    border-left: 4px solid var(--k);
+    border-radius: 10px;
+}
+
+.report-section .ell-rule h4 {
+    margin: 0 0 0.25rem;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.ell-rule code {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.78rem;
+    color: var(--text-light);
+}
+
+.ell-if {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #a4561c;
+}
+
+.report-section .ell-rule p {
+    margin: 0.15rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+/* Screenshots */
+.ell-shot {
+    margin: 1.75rem 0;
+}
+
+.ell-shot img {
+    display: block;
+    width: 100%;
+    border: 1px solid #e6e3ee;
+    border-radius: 10px;
+    box-shadow: 0 10px 28px -16px rgba(46, 42, 71, 0.35);
+}
+
+.ell-shot figcaption {
+    margin-top: 0.65rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.ell-shot figcaption strong { color: var(--dark); }
+
+/* Tutor guide */
+.ell-scores {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 1.25rem 0 1rem;
+}
+
+.ell-score {
+    border: 1px solid #e6e3ee;
+    border-top: 3px solid var(--k);
+    border-radius: 8px;
+    padding: 0.7rem;
+    min-width: 0;
+}
+
+.ell-score small {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.ell-score b {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: 1.4rem;
+    color: var(--dark);
+    font-variant-numeric: tabular-nums;
+}
+
+.ell-score em {
+    font-style: normal;
+    font-size: 0.75rem;
+}
+
+.ell-score .ok,
+.ell-flag strong { color: #2f7d52; }
+
+.ell-score .warn,
+.ell-flag.warn strong { color: #a4561c; }
+
+.ell-flags {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.ell-flag {
+    border: 1px solid #e6e3ee;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+.ell-flag strong {
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.ell-flag.warn {
+    background: #fdf6ee;
+    border-color: #efd5bb;
+}
+
+.report-section p.ell-ref {
+    font-size: 0.92rem;
+    padding-left: 1.5rem;
+    text-indent: -1.5rem;
+}
+
+/* Portfolio / home card images */
+.portfolio-image img,
+.project-preview-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+}
+
+.project-preview-image {
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .ell-readout,
+    .ell-grid2,
+    .ell-phases,
+    .ell-rule {
+        grid-template-columns: 1fr;
+    }
+
+    .ell-rule { gap: 0.5rem; }
+
+    .ell-scores {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Let wide tables and log rows scroll inside the report instead of widening the page */
+.report-main,
+.report-sidebar {
+    min-width: 0;
+}
+
+/* Report sections sit inside a card; drop the site-wide section padding there */
+.report-main .report-section {
+    padding: 0;
+}
