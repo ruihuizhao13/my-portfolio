@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELL Writing Center: SRSD Learning Analytics - Ruihui Zhao</title>
+    <meta name="description" content="Case study: a learning analytics prototype that makes the academic writing process of ELL graduate students visible, grounded in Self-Regulated Strategy Development.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Simple Navigation (No main menu) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Ruihui Zhao</a>
+            <a href="portfolio.html" class="back-link">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <!-- Report Header -->
+    <section class="report-header">
+        <div class="container">
+            <span class="report-category">Learning Analytics • Instructional Design • 2026</span>
+            <h1 class="report-title">ELL Writing Center</h1>
+            <p class="report-subtitle">Making the invisible writing process of ELL graduate students visible, with analytics grounded in Self-Regulated Strategy Development</p>
+                </div>
+            </div>
+
+            <div class="ell-hero-actions">
+                <a href="ell-writing-center-demo.html" class="btn btn-light">Try the live demo →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Content -->
+    <div class="report-content">
+        <div class="container">
+            <div class="report-layout">
+
+                <!-- Main Content -->
+                <article class="report-main">
+
+                    <!-- Overview Section -->
+                    <section class="report-section" id="overview">
+                        <h2 class="section-heading">Project Overview</h2>
+                        <p>
+                            The ELL Writing Center is a working prototype that logs how English-language-learner (ELL)
+                            graduate students plan, draft, monitor and revise their academic writing. It turns those
+                            behavioral traces into SRSD-aligned strategy prompts for the student and a reasoning guide
+                            for the tutor. Every metric traces back to a specific component of self-regulated learning.
+                        </p>
+
+                        <!-- Interactive session strip -->
+                        <div class="ell-strip" aria-labelledby="strip-title">
+                            <div class="ell-strip-head">
+                                <h4 id="strip-title">One 14-minute session, as the system sees it</h4>
+                                <span>Student S1 · Session 1 · select an event</span>
+                            </div>
+                            <div class="ell-track" id="ell-track" role="group" aria-label="Session events"></div>
+                            <div class="ell-axis"><span>20:00</span><span>20:05</span><span>20:10</span><span>20:13:50</span></div>
+                            <div class="ell-legend">
+                                <span><i class="k-plan"></i>Planning</span>
+                                <span><i class="k-write"></i>Writing</span>
+                                <span><i class="k-rev"></i>Revision</span>
+                                <span><i class="k-meta"></i>Metacognition</span>
+                                <span><i class="k-social"></i>Social</span>
+                                <span><i class="k-sys"></i>System</span>
+                            </div>
+                            <div class="ell-readout" aria-live="polite">
+                                <div class="ell-row" id="ell-ro-row"></div>
+                                <p class="ell-why" id="ell-ro-why"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Challenge Section -->
+                    <section class="report-section" id="problem">
+                        <h2 class="section-heading">Problem Statement &amp; Context</h2>
+                        <p>
+                            ELL graduate students write seminar papers, theses and journal articles while carrying
+                            four compounding challenges. Institutional support is mostly reactive: a student brings a
+                            draft, gets impressionistic feedback and leaves. Nothing in that loop shows how the student
+                            actually planned or revised.
+                        </p>
+
+                        <div class="highlight-box">
+                            <h4>Key Challenge</h4>
+                            <p>
+                                How can learning analytics make the writing process visible and actionable, both for
+                                the students themselves and for the tutors who support them?
+                            </p>
+                        </div>
+
+                        <div class="ell-grid2">
+                            <div class="ell-card"><h4>Language load</h4><p>Managing academic English syntax and vocabulary while building complex disciplinary arguments.</p></div>
+                            <div class="ell-card"><h4>Genre unfamiliarity</h4><p>Argumentation, hedging and citation conventions are rarely taught explicitly to non-native writers.</p></div>
+                            <div class="ell-card"><h4>Identity &amp; self-efficacy</h4><p>Students who doubt their academic voice revise less, avoid risk and settle for shallow edits.</p></div>
+                            <div class="ell-card"><h4>Reactive-only support</h4><p>No systematic strategy instruction; help arrives only after a draft exists.</p></div>
+                        </div>
+
+                        <h3>The Learners: A Triple Burden</h3>
+                        <p>
+                            The target learners sit where three pressures meet. Many are first-generation international
+                            students with strong content knowledge but unfamiliar conventions. They are English-language
+                            learners. And they write at a graduate level, where stakes are high and scaffolding is thin.
+                            Their writing shows consistent, detectable signals, which became the starting point for what
+                            the tool measures:
+                        </p>
+                        <div class="project-tags">
+                            <span>L1 transfer patterns</span>
+                            <span>Informal register</span>
+                            <span>Citation gaps</span>
+                            <span>Limited lexical variety</span>
+                        </div>
+                    </section>
+
+                    <!-- Theory Section -->
+                    <section class="report-section" id="theory">
+                        <h2 class="section-heading">Theoretical Framework</h2>
+                        <p>
+                            Two frameworks decide what gets logged. Harris and Graham's SRSD model gives the instructional
+                            sequence, moving learners from background knowledge through modeling to independent strategy
+                            use (I do → We do → You do). Zimmerman's Self-Regulated Learning cycle maps onto those stages
+                            and gives a vocabulary for choosing what to log, so the analytics are theoretically grounded
+                            rather than data-driven for their own sake.
+                        </p>
+
+                        <div class="ell-phases">
+                            <div class="ell-phase">
+                                <header><strong>Forethought</strong><small>Goal setting · motivation · planning</small></header>
+                                <ol>
+                                    <li><span>1</span><div>Develop background knowledge<small>Analyze exemplar texts and purposes</small></div></li>
+                                    <li><span>2</span><div>Discuss it<small>Present strategy goals; reflect on abilities</small></div></li>
+                                </ol>
+                            </div>
+                            <div class="ell-phase">
+                                <header><strong>Performance</strong><small>Self-monitoring · strategy use</small></header>
+                                <ol>
+                                    <li><span>3</span><div>Model it<small>Tutor demonstrates the REVISE strategy</small></div></li>
+                                    <li><span>4</span><div>Memorize it<small>Students learn the mnemonic and steps</small></div></li>
+                                    <li><span>5</span><div>Support it<small>Scaffolded practice; graph performance</small></div></li>
+                                </ol>
+                            </div>
+                            <div class="ell-phase">
+                                <header><strong>Self-reflection</strong><small>Self-evaluation · adaptation</small></header>
+                                <ol>
+                                    <li><span>6</span><div>Independent performance<small>Student revises without support</small></div></li>
+                                </ol>
+                            </div>
+                        </div>
+                        <p class="ell-caption">SRSD six-stage model (Harris &amp; Graham, 1996) mapped onto the SRL cycle (Zimmerman, 2000). The tool also builds in SRSD's PLANS and REVISE mnemonics, self-monitoring checklists and performance graphing.</p>
+                    </section>
+
+                    <!-- Approach Section -->
+                    <section class="report-section" id="design">
+                        <h2 class="section-heading">Analytics Design</h2>
+
+                        <h3>From Keystrokes to an Event Log</h3>
+                        <p>
+                            Each action in the writing workspace is captured as one discrete event in a 12-column log.
+                            Pauses between actions are measured automatically, because long pauses signal planning.
+                            Character counts are positive for additions and negative for deletions, which makes revision
+                            depth computable. Every field maps to an SRSD construct and can be collected from ordinary
+                            digital writing tools.
+                        </p>
+                        <div class="ell-scroll" tabindex="0" aria-label="Sample event log for student S1">
+                            <table class="ell-table">
+                                <thead><tr><th>time</th><th>eventType</th><th>eventDetail</th><th>charCount</th><th>pauseSec</th></tr></thead>
+                                <tbody id="ell-log-body"></tbody>
+                            </table>
+                        </div>
+                        <p class="ell-caption">Excerpt from S1, Session 1. Each row also carries studentID, sessionID, resource URL, rubric rating (1–5), feedback target and sentiment tag.</p>
+
+                        <h3>If-Then Rules Turn Metrics into Instruction</h3>
+                        <p>
+                            Five process metrics are computed from the raw log. When one crosses its threshold, the
+                            system surfaces a targeted, SRSD-aligned intervention for the student or alerts the tutor.
+                        </p>
+                        <div class="ell-rules">
+                            <div class="ell-rule k-plan">
+                                <div><h4>PlanningScore</h4><code># SetGoal + PlanOutline</code></div>
+                                <div><span class="ell-if">IF &lt; 2</span><p>Prompt the student to set explicit, measurable goals before drafting.</p></div>
+                            </div>
+                            <div class="ell-rule k-write">
+                                <div><h4>TranslationFluency</h4><code>words ÷ writing minutes</code></div>
+                                <div><span class="ell-if">IF &lt; 8 wpm</span><p>Suggest freewriting in the first language, then translating core ideas.</p></div>
+                            </div>
+                            <div class="ell-rule k-rev">
+                                <div><h4>RevisionScore</h4><code>|Σ negative charCount|</code></div>
+                                <div><span class="ell-if">IF &lt; 20</span><p>Alert the tutor to likely surface-only edits; introduce the REVISE mnemonic.</p></div>
+                            </div>
+                            <div class="ell-rule k-meta">
+                                <div><h4>MetacogScore</h4><code># CheckRubric + Highlight + SelfEvaluate</code></div>
+                                <div><span class="ell-if">IF = 0</span><p>Surface the rubric checklist and prompt one self-assessment step.</p></div>
+                            </div>
+                            <div class="ell-rule k-social">
+                                <div><h4>SocialSupportScore</h4><code># RequestFeedback + ReceiveFeedback</code></div>
+                                <div><span class="ell-if">IF 0 across 3 sessions</span><p>Recommend peer review or a writing center appointment.</p></div>
+                            </div>
+                        </div>
+                        <p class="ell-caption">Writing-quality outcomes sit alongside the process metrics: word count, type-token ratio for lexical diversity, average sentence length, and grammar errors from an external NLP checker.</p>
+                    </section>
+
+                    <!-- Implementation Section -->
+                    <section class="report-section" id="product">
+                        <h2 class="section-heading">The Prototype</h2>
+                        <p>
+                            I built the design as a working single-page prototype so the analytics logic could be tested
+                            against real interaction instead of only being described. It runs entirely in the browser.
+                            <a href="ell-writing-center-demo.html" class="ell-inline-link">Open the demo</a>, pick a
+                            student, and every click and keystroke is logged.
+                        </p>
+
+                        <figure class="ell-shot">
+                            <img src="signin.png" alt="Sign-in screen with four student profile cards, S1 to S4, labeled advanced, intermediate and beginner" width="1920" height="430" loading="lazy">
+                            <figcaption><strong>1 · Sign in.</strong> Four sample learners from beginner to advanced. Choosing one fires a StartSession event and opens a new session ID.</figcaption>
+                        </figure>
+                        <figure class="ell-shot">
+                            <img src="workspace.png" alt="Writing workspace with an SRL tools list, a draft about climate change, and a live list of the last eight events" width="877" height="407" loading="lazy">
+                            <figcaption><strong>2 · Write.</strong> SRL tools (set goal, plan outline, check rubric, self-evaluate, request feedback, tag sentiment) sit beside the editor. Typing fires WriteText and ReviseText events.</figcaption>
+                        </figure>
+                        <figure class="ell-shot">
+                            <img src="dashboard.png" alt="Analytics dashboard showing five process scores, four writing-quality metrics and a color-coded session timeline" width="1920" height="640" loading="lazy">
+                            <figcaption><strong>3 · Analyze.</strong> Five process scores and four writing-quality metrics computed live from the event stream, with a color-coded session timeline. The full log exports to CSV.</figcaption>
+                        </figure>
+
+                        <h3>One Log, Read by the Tutor</h3>
+                        <p>
+                            The same data becomes a tutor reasoning guide. Each recommendation traces back to an
+                            SRSD-grounded threshold, so the tutor knows what to do next session and why.
+                        </p>
+                        <div class="ell-scores">
+                            <div class="ell-score k-plan"><small>Planning</small><b>2</b><em class="ok">✓ 2 goals set</em></div>
+                            <div class="ell-score k-write"><small>Fluency</small><b>12.4</b><em class="ok">✓ wpm</em></div>
+                            <div class="ell-score k-rev"><small>Revision</small><b>3</b><em class="warn">⚠ surface only</em></div>
+                            <div class="ell-score k-meta"><small>Metacog</small><b>2</b><em class="ok">✓ rubric + highlight</em></div>
+                            <div class="ell-score k-social"><small>Social</small><b>1</b><em class="ok">✓ peer request</em></div>
+                        </div>
+                        <div class="ell-flags">
+                            <div class="ell-flag warn"><strong>⚠ Low revision (score 3)</strong>S1 deleted only 3 characters, which suggests surface edits. Introduce the REVISE mnemonic and ask the student to evaluate one paragraph against the rubric before the next draft.</div>
+                            <div class="ell-flag"><strong>✓ Strong planning (score 2)</strong>Two goal-setting events recorded. Reinforce the pattern and connect goals to rubric criteria at the start of the next session.</div>
+                            <div class="ell-flag"><strong>✓ Socially engaged (score 1)</strong>One peer feedback request. Ask whether the student used the feedback and discuss revision decisions next session.</div>
+                        </div>
+                    </section>
+
+                    <!-- Reflection Section -->
+                    <section class="report-section" id="reflection">
+                        <h2 class="section-heading">Reflection &amp; Next Steps</h2>
+                        <h3>Key Learnings</h3>
+                        <ul>
+                            <li>Starting from theory made the data model easier to defend: every logged field answers "which SRL component does this show?"</li>
+                            <li>Thresholds are only useful when each one is paired with a specific instructional move.</li>
+                            <li>The same event log can serve different people if each view is phrased for what that person needs to do next.</li>
+                            <li>Building a clickable prototype exposed design questions a slide deck could not, such as how to estimate writing time from pauses.</li>
+                        </ul>
+                        <h3>Next Steps</h3>
+                        <p>
+                            Pilot the prototype with ELL graduate students and writing center tutors, check whether the
+                            thresholds match tutors' own judgments, and add an institution-level view so program staff
+                            can see patterns across students and sessions.
+                        </p>
+                    </section>
+
+                    <!-- References -->
+                    <section class="report-section" id="references">
+                        <h2 class="section-heading">References</h2>
+                        <p class="ell-ref">Harris, K. R., &amp; Graham, S. (1996). <em>Making the writing process work: Strategies for composition and self-regulation.</em> Brookline Books.</p>
+                        <p class="ell-ref">Zimmerman, B. J. (2000). Attaining self-regulation: A social cognitive perspective. In M. Boekaerts, P. R. Pintrich, &amp; M. Zeidner (Eds.), <em>Handbook of self-regulation</em> (pp. 13–39). Academic Press.</p>
+                    </section>
+
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="report-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Project Details</h3>
+                        <dl class="details-list">
+                            <dt>Completed</dt>
+                            <dd>May 2026</dd>
+
+                            <dt>Context</dt>
+                            <dd>EDUC 795: Learning Analytics</dd>
+
+                            <dt>Learners</dt>
+                            <dd>ELL graduate students &amp; writing center tutors</dd>
+
+                            <dt>Your Role</dt>
+                            <dd>Instructional Designer &amp; Learning Engineer</dd>
+                        </dl>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Skills Demonstrated</h3>
+                        <div class="sidebar-tags">
+                            <span>Learner analysis</span>
+                            <span>Theory-to-design translation</span>
+                            <span>Learning analytics</span>
+                            <span>Data modeling</span>
+                            <span>Adaptive intervention design</span>
+                            <span>Multi-stakeholder UX</span>
+                            <span>Rapid prototyping</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Frameworks &amp; Tools</h3>
+                        <div class="sidebar-tags">
+                            <span>SRSD</span>
+                            <span>SRL (Zimmerman)</span>
+                            <span>HTML / CSS / JavaScript</span>
+                            <span>Event-log analytics</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Resources</h3>
+                        <ul class="resource-list">
+                            <li><a href="ell-writing-center-demo.html">Live Demo</a></li>
+                            <li><a href="#design">Analytics Rules</a></li>
+                            <li><a href="#theory">Theoretical Framework</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-cta">
+                        <p><strong>Interested in similar work?</strong></p>
+                        <a href="contact.html" class="btn btn-small">Contact Me</a>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation to other projects -->
+    <section class="project-navigation">
+        <div class="container">
+            <a href="portfolio.html" class="nav-center">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h3>Ruihui Zhao</h3>
+                    <p>Building the future, one project at a time.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="portfolio.html">Portfolio</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ruihui Zhao. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        var T1 = 830; // 20:00:00 → 20:13:50
+        var E = [
+            {t:0,   ts:'20:00:00', type:'StartSession',   d:'Start of writing session',             c:'',   p:'',    k:'sys',    why:'<strong>System event.</strong> Opens session S1_sess1; every later row is tied to it.'},
+            {t:80,  ts:'20:01:20', type:'SetGoal',        d:'Write a 4-part outline for essay',     c:'',   p:'80',  k:'plan',   why:'<strong>Forethought.</strong> Counts toward PlanningScore. The 80-second pause before it reads as planning time.'},
+            {t:220, ts:'20:03:40', type:'PlanOutline',    d:'Intro, Causes, Solutions, Conclusion', c:'42', p:'140', k:'plan',   why:'<strong>Forethought.</strong> Second planning event, so PlanningScore = 2 and the goal-setting prompt stays quiet.'},
+            {t:260, ts:'20:04:20', type:'SearchResource', d:'climate action plan',                  c:'',   p:'40',  k:'meta',   why:'<strong>Strategy use.</strong> Searching for sources, logged as a metacognitive move.'},
+            {t:270, ts:'20:04:30', type:'OpenResource',   d:'Opened EPA climate report',            c:'',   p:'10',  k:'meta',   why:'<strong>Strategy use.</strong> Opening a source; pairs with the search above.'},
+            {t:320, ts:'20:05:20', type:'WriteText',      d:"Typed: 'Climate change is key…'",      c:'28', p:'50',  k:'write',  why:'<strong>Performance.</strong> Words and writing time feed TranslationFluency (12.4 wpm this session).'},
+            {t:410, ts:'20:06:50', type:'WriteText',      d:"Typed: 'Effects include floods…'",     c:'29', p:'90',  k:'write',  why:'<strong>Performance.</strong> A 90-second pause mid-draft, a possible sign of language load.'},
+            {t:490, ts:'20:08:10', type:'ReviseText',     d:"Deleted 'the'",                        c:'-3', p:'30',  k:'rev',    why:'<strong>Self-reflection.</strong> The only revision: 3 characters. RevisionScore = 3 is under 20, so the tutor gets a surface-edit alert and the REVISE mnemonic.'},
+            {t:505, ts:'20:08:25', type:'HighlightText',  d:"Highlighted 'climate change impact'",  c:'',   p:'15',  k:'meta',   why:'<strong>Performance.</strong> Self-monitoring; counts toward MetacogScore.'},
+            {t:515, ts:'20:08:35', type:'CheckRubric',    d:'Organization: 4',                      c:'',   p:'10',  k:'meta',   why:'<strong>Self-evaluation.</strong> A 1–5 rubric rating; MetacogScore rises to 2.'},
+            {t:545, ts:'20:09:05', type:'SentimentTag',   d:'User sentiment: positive',             c:'',   p:'30',  k:'write',  why:'<strong>Affect.</strong> Tracked because self-efficacy shapes how deeply ELL writers revise.'},
+            {t:645, ts:'20:10:45', type:'RequestFeedback',d:'Requested feedback from peer',         c:'',   p:'100', k:'social', why:'<strong>Help-seeking.</strong> SocialSupportScore = 1. The tutor guide asks whether the feedback was used.'},
+            {t:830, ts:'20:13:50', type:'EndSession',     d:"Final essay: 'In conclusion…'",        c:'64', p:'185', k:'sys',    why:'<strong>System event.</strong> Closes the session; metrics and the tutor guide are computed from everything above.'}
+        ];
+        var track = document.getElementById('ell-track');
+        var row = document.getElementById('ell-ro-row');
+        var why = document.getElementById('ell-ro-why');
+        var btns = E.map(function (e, i) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'ell-tick k-' + e.k;
+            b.style.left = (2 + 96 * e.t / T1) + '%';
+            b.style.animationDelay = (i * 55) + 'ms';
+            b.setAttribute('aria-label', e.ts + ' ' + e.type);
+            b.setAttribute('aria-pressed', 'false');
+            b.addEventListener('click', function () { select(i); });
+            track.appendChild(b);
+            return b;
+        });
+        function select(i) {
+            var e = E[i];
+            btns.forEach(function (b, j) { b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+            row.innerHTML = '<i class="k-' + e.k + '"></i> <b>' + e.type + '</b><br>' +
+                'timestamp&nbsp;&nbsp;&nbsp;2026-04-10T' + e.ts + 'Z<br>' +
+                'eventDetail&nbsp;' + e.d + '<br>' +
+                'charCount&nbsp;&nbsp;&nbsp;' + (e.c || '—') + '&nbsp;&nbsp;·&nbsp;&nbsp;pauseSeconds&nbsp;' + (e.p || '—');
+            why.innerHTML = e.why;
+        }
+        select(7);
+
+        var body = document.getElementById('ell-log-body');
+        E.forEach(function (e) {
+            var tr = document.createElement('tr');
+            tr.innerHTML = '<td class="mono">' + e.ts + '</td><td class="mono"><i class="k-' + e.k + '"></i>' + e.type +
+                '</td><td>' + e.d + '</td><td class="num">' + e.c + '</td><td class="num">' + e.p + '</td>';
+            body.appendChild(tr);
+        });
+    })();
+    </script>
+</body>
+</html>
