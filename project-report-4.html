@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollie's Backpack Rescue: Design Thinking Game - Ruihui Zhao</title>
+    <meta name="description" content="Case study: Ollie's Backpack Rescue, a 5-minute browser game that teaches young learners the five steps of design thinking.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Simple Navigation (No main menu) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Ruihui Zhao</a>
+            <a href="portfolio.html" class="back-link">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <!-- Report Header -->
+    <section class="report-header">
+        <div class="container">
+            <span class="report-category">Game-Based Learning • Design Thinking • 2026</span>
+            <h1 class="report-title">Ollie's Backpack Rescue</h1>
+            <p class="report-subtitle">A 5-minute browser game where young learners practice all five steps of design thinking by inventing something for Ollie, an 8-year-old octopus</p>
+
+            <div class="ell-hero-actions">
+                <a href="ollie-backpack-rescue.html" class="btn btn-light">Play the game →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Content -->
+    <div class="report-content">
+        <div class="container">
+            <div class="report-layout">
+
+                <!-- Main Content -->
+                <article class="report-main">
+
+                    <!-- Overview -->
+                    <section class="report-section" id="overview">
+                        <h2 class="section-heading">Project Overview</h2>
+                        <p>
+                            Ollie's Backpack Rescue teaches children the design thinking process (Empathize, Define,
+                            Ideate, Prototype, Test) by having them do it. Ollie has eight arms, a backpack with two
+                            straps and a very messy school morning. The learner interviews him, names his real
+                            problem, brainstorms, builds an invention and watches Ollie try it. If the invention
+                            misses one of his needs, they improve it and test again.
+                        </p>
+                        <figure class="ell-shot">
+                            <img src="ollie-intro.jpg" alt="Game start screen: Ollie the octopus asks for help, next to a five-step map of design thinking and a box for the player's designer name" width="1000" height="563" loading="lazy">
+                            <figcaption><strong>The opening screen.</strong> Ollie states his problem, the five steps are previewed as a map, and the learner picks a designer name that is used throughout.</figcaption>
+                        </figure>
+                        <div class="highlight-box">
+                            <h4>Design Goal</h4>
+                            <p>
+                                Help young learners understand that designers solve problems for real people, and let
+                                them practice each step of design thinking in one short, low-stakes session.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Approach -->
+                    <section class="report-section" id="approach">
+                        <h2 class="section-heading">Design Approach</h2>
+                        <ul class="objectives-list">
+                            <li><strong>Learn by doing:</strong> every step is an action (asking, choosing, catching, building, testing), not a definition to read.</li>
+                            <li><strong>Feedback in the character's voice:</strong> Ollie reacts to every choice, so feedback feels like part of the story rather than a grade.</li>
+                            <li><strong>Mistakes are teaching moments:</strong> weak choices are allowed, and each one explains why it misses so the learner can recover.</li>
+                            <li><strong>One thread from start to finish:</strong> the three clues found in Empathize are the criteria checked in Test, so learners see how each step feeds the next.</li>
+                        </ul>
+                    </section>
+
+                    <!-- Walkthrough -->
+                    <section class="report-section" id="product">
+                        <h2 class="section-heading">The Learning Experience</h2>
+
+                        <h3>1 · Empathize: Listen First</h3>
+                        <p>
+                            Learners choose questions to ask Ollie. Open questions about his life reveal a clue. Leading
+                            questions ("Do you want a red backpack?") get a vague answer and a tip explaining that the
+                            question had the learner's own idea hiding inside.
+                        </p>
+                        <figure class="ell-shot">
+                            <img src="ollie-empathize.jpg" alt="Empathize step: a list of questions to ask Ollie, one marked as a good question and one greyed out with a tip about leading questions, and a board of three clues" width="1000" height="745" loading="lazy">
+                            <figcaption>Good questions turn teal and unlock a clue. The leading question shows a tip instead of a penalty.</figcaption>
+                        </figure>
+
+                        <h3>2 · Define: Name the Real Problem</h3>
+                        <p>
+                            Learners fill in a "How might we…" sentence using their clues. Each distractor gives a reason
+                            it doesn't fit, such as "His arms are part of who he is! We design FOR Ollie, we don't change him."
+                        </p>
+                        <figure class="ell-shot">
+                            <img src="ollie-define.jpg" alt="Define step: a How might we sentence completed with carry all his things and find them fast, so that he gets to school on time with a yummy lunch, with a crossed-out wrong choice" width="1000" height="745" loading="lazy">
+                            <figcaption>The completed challenge, with a rejected option crossed out.</figcaption>
+                        </figure>
+
+                        <h3>3 · Ideate: Go for Quantity</h3>
+                        <p>
+                            A 25-second "idea storm" sends idea bubbles floating up for learners to catch, and they can
+                            type their own. Brainstorming rules on screen (go for lots, wild ideas welcome, no "that's
+                            bad" yet) teach deferring judgment. Then learners pick one idea to build.
+                        </p>
+                        <figure class="ell-shot">
+                            <img src="ollie-ideate.jpg" alt="Ideate step: idea bubbles such as Belt with 8 pouches and Snail taxi float in a purple box, with a countdown timer and brainstorming rules" width="1000" height="727" loading="lazy">
+                            <figcaption>The timed idea storm makes "more ideas" a game mechanic.</figcaption>
+                        </figure>
+
+                        <h3>4 · Prototype: Build It Rough</h3>
+                        <p>
+                            Learners name their invention, pick a base (backpack, belt or cart) and add parts. The
+                            drawing updates live. A reminder prompts them to look back at Ollie's clues, and some parts,
+                            like rocket boosters, are fun but don't solve anything.
+                        </p>
+                        <figure class="ell-shot">
+                            <img src="ollie-prototype.jpg" alt="Prototype step: a live drawing of Maya's Octo-Pack belt with pockets, labels and a cooler, next to base and part tiles" width="1000" height="745" loading="lazy">
+                            <figcaption>A quick, rough model that redraws with every part added or removed.</figcaption>
+                        </figure>
+
+                        <h3>5 · Test: Learn and Iterate</h3>
+                        <p>
+                            Ollie tries the invention against each of his three clues. Anything missing comes back as
+                            honest, specific feedback ("My lunch is still squished and soggy"), and learners are invited
+                            to improve the design. The game calls this loop <em>iterating</em> and celebrates it.
+                        </p>
+                        <div class="budget-pair">
+                            <figure class="ell-shot">
+                                <img src="ollie-test-retry.jpg" alt="Test result showing two of three clues solved and Ollie asking for help with his lunch, with an Improve my design button" width="1000" height="745" loading="lazy">
+                                <figcaption><strong>First test:</strong> 2 of 3 clues solved, with a prompt to improve.</figcaption>
+                            </figure>
+                            <figure class="ell-shot">
+                                <img src="ollie-test-pass.jpg" alt="Second test: all three clues solved, Ollie celebrating with confetti" width="1000" height="745" loading="lazy">
+                                <figcaption><strong>Second test:</strong> 3 of 3, and the game praises the build, test, improve loop.</figcaption>
+                            </figure>
+                        </div>
+
+                        <h3>Reflection &amp; Transfer</h3>
+                        <p>
+                            A personalized certificate recaps what the learner did at each step and their stats (clues
+                            found, ideas caught, tests run). It ends with a real-world challenge: ask someone at home
+                            about the hardest part of their morning, then invent something to help them.
+                        </p>
+                        <figure class="ell-shot">
+                            <img src="ollie-certificate.jpg" alt="Certificate naming Maya a Certified Design Thinker, with stats, a recap of all five steps and a try-it-at-home challenge" width="1000" height="745" loading="lazy">
+                            <figcaption>The certificate doubles as a summary of the five steps.</figcaption>
+                        </figure>
+                    </section>
+
+                    <!-- Accessibility -->
+                    <section class="report-section" id="accessibility">
+                        <h2 class="section-heading">Accessibility &amp; Inclusion</h2>
+                        <div class="ell-grid2">
+                            <div class="ell-card"><h4>Read aloud</h4><p>Ollie speaks his lines with text-to-speech, so early and struggling readers can follow along. It can be turned off.</p></div>
+                            <div class="ell-card"><h4>Sound control</h4><p>Sound effects reinforce right and wrong choices and have their own on/off toggle.</p></div>
+                            <div class="ell-card"><h4>Reduced motion</h4><p>Animations and confetti switch off for learners whose devices ask for reduced motion.</p></div>
+                            <div class="ell-card"><h4>Keyboard and screen</h4><p>Every control is a real button with a visible focus outline, and the layout works on phones, tablets and Chromebooks.</p></div>
+                        </div>
+                    </section>
+
+                    <!-- Reflection -->
+                    <section class="report-section" id="reflection">
+                        <h2 class="section-heading">Reflection &amp; Next Steps</h2>
+                        <h3>Key Learnings</h3>
+                        <ul>
+                            <li>Linking the Empathize clues to the Test criteria made the whole process feel connected instead of five separate activities.</li>
+                            <li>Explaining why a wrong choice misses teaches more than marking it wrong.</li>
+                            <li>A playful character lets children practice failure and iteration without feeling judged.</li>
+                        </ul>
+                        <h3>Next Steps</h3>
+                        <p>
+                            Playtest with children and teachers, add new characters and problems so the game can be
+                            replayed, and create a short teacher guide for using it as a warm-up before a classroom
+                            design project.
+                        </p>
+                    </section>
+
+                </article>
+
+                <!-- Sidebar -->
+                <aside class="report-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Project Details</h3>
+                        <dl class="details-list">
+                            <dt>Year</dt>
+                            <dd>2026</dd>
+
+                            <dt>Learners</dt>
+                            <dd>Elementary-age children</dd>
+
+                            <dt>Length</dt>
+                            <dd>About 5 minutes</dd>
+
+                            <dt>Your Role</dt>
+                            <dd>Instructional Designer &amp; Developer</dd>
+                        </dl>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Skills Demonstrated</h3>
+                        <div class="sidebar-tags">
+                            <span>Game-based learning</span>
+                            <span>Interactive design</span>
+                            <span>Feedback design</span>
+                            <span>Narrative &amp; character design</span>
+                            <span>Accessibility</span>
+                            <span>Rapid prototyping</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Frameworks &amp; Tools</h3>
+                        <div class="sidebar-tags">
+                            <span>Design thinking</span>
+                            <span>HTML / CSS / JavaScript</span>
+                            <span>Built with Claude</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3>Resources</h3>
+                        <ul class="resource-list">
+                            <li><a href="ollie-backpack-rescue.html">Play the Game</a></li>
+                            <li><a href="#product">Step-by-step walkthrough</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-cta">
+                        <p><strong>Interested in similar work?</strong></p>
+                        <a href="contact.html" class="btn btn-small">Contact Me</a>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation to other projects -->
+    <section class="project-navigation">
+        <div class="container">
+            <a href="portfolio.html" class="nav-center">← Back to All Projects</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h3>Ruihui Zhao</h3>
+                    <p>Building the future, one project at a time.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="portfolio.html">Portfolio</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ruihui Zhao. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

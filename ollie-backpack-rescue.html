@@ -1,0 +1,637 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Ollie's Backpack Rescue | Ruihui Zhao</title></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#FFF1B8; --paper:#FFFDF4; --ink:#1E2748; --ink-soft:#4A5378;
+  --coral:#FF6F59; --coral-soft:#FFE0D9;
+  --sun:#FFC43D; --sun-soft:#FFF3CC;
+  --grape:#6C4FD8; --grape-soft:#ECE6FF;
+  --teal:#13A89E; --teal-soft:#D5F3F0;
+  --sky:#4DB6F0; --sky-soft:#DDF1FC;
+  --good:#0E7F55; --line:#1E2748;
+  --display:"Baloo 2", "Comic Sans MS", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Nunito", "Trebuchet MS", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0; background:var(--ground); color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.5;
+  background-image:radial-gradient(rgba(30,39,72,.09) 1.5px, transparent 1.6px); background-size:22px 22px;
+  padding-inline:16px; padding-block:0 40px;
+}
+.wrap{max-width:1040px; margin:0 auto}
+button{font:inherit; color:inherit; cursor:pointer}
+button:focus-visible, input:focus-visible{outline:3px solid var(--grape); outline-offset:3px}
+
+/* header */
+header{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding-block:18px 10px}
+.brand{font-family:var(--display); font-weight:800; font-size:22px; letter-spacing:.2px; display:flex; align-items:center; gap:8px}
+.brand svg{width:34px; height:34px}
+.toggles{display:flex; flex-wrap:wrap; gap:8px}
+.tog{border:2px solid var(--line); background:var(--paper); border-radius:999px; padding:4px 12px; font-weight:800; font-size:14px}
+.tog[aria-pressed="false"]{opacity:.55; text-decoration:line-through}
+
+/* stepper */
+.steps{display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-block:6px 18px; list-style:none; padding:0}
+.steps li{border:2px solid var(--line); border-radius:14px; background:var(--paper); padding:6px 8px; text-align:center; opacity:.5; transition:opacity .3s, transform .3s}
+.steps li b{display:block; font-family:var(--display); font-size:16px; line-height:1.1}
+.steps li span{font-size:12px; font-weight:700; color:var(--ink-soft)}
+.steps li.on{opacity:1; transform:translateY(-3px); box-shadow:0 4px 0 var(--line)}
+.steps li.done{opacity:1}
+.steps li.done b::after{content:" \2713"; color:var(--good)}
+.steps li[data-c="coral"].on,.steps li[data-c="coral"].done{background:var(--coral-soft)}
+.steps li[data-c="sun"].on,.steps li[data-c="sun"].done{background:var(--sun-soft)}
+.steps li[data-c="grape"].on,.steps li[data-c="grape"].done{background:var(--grape-soft)}
+.steps li[data-c="teal"].on,.steps li[data-c="teal"].done{background:var(--teal-soft)}
+.steps li[data-c="sky"].on,.steps li[data-c="sky"].done{background:var(--sky-soft)}
+@media (max-width:560px){ .steps li span{display:none} .steps li b{font-size:13px} }
+
+/* main card */
+.card{background:var(--paper); border:3px solid var(--line); border-radius:26px; box-shadow:0 8px 0 var(--line); padding:22px; animation:pop .35s ease-out}
+@keyframes pop{from{transform:scale(.97); opacity:.6} to{transform:none; opacity:1}}
+.grid{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:24px; align-items:start}
+@media (max-width:760px){ .grid{grid-template-columns:1fr} .card{padding:16px} }
+.eyebrow{display:inline-block; font-weight:800; font-size:13px; letter-spacing:1px; text-transform:uppercase; border:2px solid var(--line); border-radius:999px; padding:2px 12px; background:var(--sun-soft)}
+h1,h2{font-family:var(--display); font-weight:800; line-height:1.05; margin:10px 0 8px; text-wrap:balance}
+h1{font-size:clamp(34px,6vw,56px)}
+h2{font-size:clamp(26px,4vw,36px)}
+p{margin:0 0 12px; max-width:62ch}
+.lead{font-size:18px}
+.muted{color:var(--ink-soft)}
+
+/* Ollie */
+.ollie-box{position:relative; background:var(--sky-soft); border:3px solid var(--line); border-radius:22px; padding:12px 12px 4px; display:flex; flex-direction:column; align-items:center}
+.ollie{width:100%; max-width:220px; height:auto}
+.bubble{position:relative; background:#fff; border:3px solid var(--line); border-radius:18px; padding:10px 14px; font-weight:700; min-height:56px; width:100%; margin-bottom:10px}
+.bubble::after{content:""; position:absolute; left:50%; bottom:-14px; width:18px; height:18px; background:#fff; border-right:3px solid var(--line); border-bottom:3px solid var(--line); transform:translateX(-50%) rotate(45deg)}
+.tent{transform-box:fill-box; transform-origin:50% 0; animation:wig 1.6s ease-in-out infinite alternate}
+.tent:nth-child(2n){animation-delay:-.8s}
+@keyframes wig{from{transform:rotate(-7deg)} to{transform:rotate(7deg)}}
+.eyes{transform-box:fill-box; transform-origin:center; animation:blink 4s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)} 97%{transform:scaleY(.1)}}
+.ollie.bounce{animation:bnc .6s ease-in-out 3}
+@keyframes bnc{50%{transform:translateY(-14px) rotate(-3deg)}}
+
+/* buttons */
+.btn{border:3px solid var(--line); background:var(--ink); color:#fff; font-family:var(--display); font-weight:800; font-size:20px; border-radius:16px; padding:8px 22px; box-shadow:0 4px 0 #000; transition:transform .1s}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 #000}
+.btn[disabled]{opacity:.35; cursor:not-allowed}
+.btn.ghost{background:var(--paper); color:var(--ink); box-shadow:0 4px 0 var(--line)}
+.row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.footer-row{display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; margin-top:18px}
+
+.q{display:block; width:100%; text-align:left; border:2px solid var(--line); background:#fff; border-radius:14px; padding:10px 14px; font-weight:700; margin-bottom:8px; transition:transform .15s, background .2s}
+.q:hover{transform:translateX(4px)}
+.q.good{background:var(--teal-soft)}
+.q.bad{background:#F1EFEA; color:var(--ink-soft)}
+.q.used{pointer-events:none}
+.tip{border:2px dashed var(--line); border-radius:14px; padding:8px 12px; background:var(--sun-soft); font-weight:700; margin-top:6px}
+
+.clues{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:12px}
+@media (max-width:480px){ .clues{grid-template-columns:1fr} }
+.clue{border:2px dashed var(--ink-soft); border-radius:14px; padding:8px 10px; min-height:66px; font-weight:800; font-size:14px; display:flex; gap:8px; align-items:center; color:var(--ink-soft)}
+.clue.found{border-style:solid; border-color:var(--line); background:var(--coral-soft); color:var(--ink); animation:pop .35s}
+.clue svg{flex:none; width:30px; height:30px}
+
+/* define */
+.sentence{font-family:var(--display); font-weight:800; font-size:clamp(20px,3vw,28px); line-height:1.35; background:#fff; border:3px solid var(--line); border-radius:18px; padding:14px 16px}
+.blank{display:inline-block; min-width:140px; border-bottom:4px solid var(--sun); color:var(--grape); padding:0 6px}
+.blank.ok{border-color:var(--good); color:var(--good)}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 4px}
+.chip{border:2px solid var(--line); background:#fff; border-radius:999px; padding:6px 14px; font-weight:800}
+.chip.sel{background:var(--sun)}
+.chip.no{background:#F1EFEA; color:var(--ink-soft); text-decoration:line-through}
+.label{font-weight:800; margin-top:14px}
+
+/* ideate */
+.sky{position:relative; height:340px; border:3px solid var(--line); border-radius:22px; overflow:hidden; background:linear-gradient(180deg,#F6F2FF, var(--grape-soft))}
+.idea{position:absolute; border:2px solid var(--line); background:#fff; border-radius:999px; padding:6px 12px; font-weight:800; font-size:14px; white-space:nowrap; box-shadow:0 3px 0 var(--line)}
+.idea.popped{animation:burst .35s forwards; pointer-events:none}
+@keyframes burst{to{transform:scale(1.6); opacity:0}}
+.hud{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-bottom:10px}
+.timer{font-family:var(--display); font-weight:800; font-size:28px; min-width:74px; text-align:center; background:var(--grape); color:#fff; border-radius:14px; padding:0 10px; font-variant-numeric:tabular-nums}
+.count{font-weight:800}
+.rules{display:flex; flex-wrap:wrap; gap:6px}
+.rules span{background:var(--grape-soft); border:2px solid var(--line); border-radius:999px; padding:2px 10px; font-size:13px; font-weight:800}
+.own{display:flex; gap:8px; margin-top:10px}
+.own input{flex:1; min-width:0; border:2px solid var(--line); border-radius:12px; padding:8px 12px; font:inherit; font-weight:700; background:#fff}
+.center-msg{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:16px; gap:8px}
+
+/* prototype */
+.canvas{background:#fff; border:3px solid var(--line); border-radius:22px; background-image:linear-gradient(var(--teal-soft) 1px, transparent 1px),linear-gradient(90deg,var(--teal-soft) 1px, transparent 1px); background-size:20px 20px}
+.canvas svg{width:100%; height:auto; display:block}
+.bases{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.parts{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px}
+@media (max-width:480px){ .parts{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.tile{border:2px solid var(--line); background:#fff; border-radius:14px; padding:8px 6px; font-weight:800; font-size:13px; display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center}
+.tile svg{width:34px; height:34px}
+.tile[aria-pressed="true"]{background:var(--teal-soft); box-shadow:inset 0 0 0 2px var(--teal)}
+.namefield{width:100%; border:2px solid var(--line); border-radius:12px; padding:8px 12px; font:inherit; font-weight:800; background:#fff}
+
+/* test */
+.checks{list-style:none; padding:0; margin:10px 0; display:grid; gap:8px}
+.checks li{border:2px solid var(--line); border-radius:14px; padding:8px 12px; font-weight:700; display:flex; gap:10px; align-items:flex-start; background:#fff; animation:pop .35s both}
+.checks li .mark{flex:none; width:28px; height:28px; border-radius:50%; border:2px solid var(--line); display:grid; place-items:center; font-weight:800}
+.checks li.yes .mark{background:#BDEBD6}
+.checks li.no .mark{background:var(--coral-soft)}
+.checks li.bonus .mark{background:var(--sun-soft)}
+
+/* intro */
+.map{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin:14px 0}
+@media (max-width:620px){ .map{grid-template-columns:1fr 1fr} }
+.map div{border:2px solid var(--line); border-radius:14px; padding:8px 10px; font-size:14px; font-weight:700}
+.map b{font-family:var(--display); font-size:18px; display:block}
+.namebox{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:8px}
+.namebox input{border:3px solid var(--line); border-radius:14px; padding:8px 14px; font:inherit; font-size:18px; font-weight:800; width:min(260px,100%); background:#fff}
+
+/* certificate */
+.cert{border:4px double var(--line); border-radius:22px; padding:20px; background:#fff; text-align:center}
+.cert .big{font-family:var(--display); font-weight:800; font-size:clamp(30px,5vw,48px); line-height:1; margin:6px 0; color:var(--grape)}
+.stats{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:12px 0}
+.stats div{border:2px solid var(--line); border-radius:14px; padding:6px 14px; font-weight:800; background:var(--sun-soft); font-variant-numeric:tabular-nums}
+.recap{display:grid; gap:8px; margin-top:14px; text-align:left}
+.recap div{border:2px solid var(--line); border-radius:14px; padding:8px 12px; background:var(--paper)}
+.recap b{font-family:var(--display)}
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:10}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important; transition:none !important}
+}
+</style>
+
+<canvas id="confetti"></canvas>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="16" r="12" fill="#FF6F59" stroke="#1E2748" stroke-width="2.5"/><circle cx="15.5" cy="15" r="2.4" fill="#1E2748"/><circle cx="24.5" cy="15" r="2.4" fill="#1E2748"/><path d="M10 27 q-2 6 2 9 M16 28 q-1 6 1 9 M24 28 q1 6 -1 9 M30 27 q2 6 -2 9" stroke="#FF6F59" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>
+      Ollie's Backpack Rescue
+    </div>
+    <div class="toggles">
+      <a class="tog" href="project-report-4.html" style="text-decoration:none">&larr; Case study</a>
+      <button class="tog" id="tVoice" aria-pressed="true" title="Ollie reads the words out loud">Read aloud</button>
+      <button class="tog" id="tSound" aria-pressed="true" title="Sound effects">Sounds</button>
+    </div>
+  </header>
+  <ol class="steps" id="steps"></ol>
+  <main id="stage"></main>
+</div>
+
+<script>
+(function(){
+const STEPS=[
+  {n:"Empathize",k:"Listen",c:"coral"},
+  {n:"Define",k:"Pick the problem",c:"sun"},
+  {n:"Ideate",k:"Dream up ideas",c:"grape"},
+  {n:"Prototype",k:"Build it",c:"teal"},
+  {n:"Test",k:"Try it out",c:"sky"}
+];
+const CLUES={
+  carry:{label:"Needs to carry lots of things",icon:"bag"},
+  find:{label:"Needs to find things fast",icon:"eye"},
+  lunch:{label:"Wants lunch to stay fresh",icon:"sandwich"}
+};
+const QUESTIONS=[
+  {t:"What's the hardest part of your school morning?",good:true,clue:"carry",a:"I have eight arms, but my backpack only has two straps. Stuff keeps falling out everywhere!"},
+  {t:"Do you want a red backpack?",good:false,a:"Um... red is fine, I guess?",tip:"That's a yes-or-no question with YOUR idea hiding inside. Ask about Ollie's life instead!"},
+  {t:"Can you show me what happens when you look for something?",good:true,clue:"find",a:"I dig and dig. Pencil? Book? Flute? I can never find them fast, so I'm late for class!"},
+  {t:"Wouldn't a jetpack be awesome?",good:false,a:"Maybe...? I don't know.",tip:"Save your ideas for later! Right now, just listen and learn."},
+  {t:"How do you feel at lunchtime?",good:true,clue:"lunch",a:"Sad. My sandwich gets squished and soggy at the bottom of my bag."}
+];
+const BLANK1=[
+  {t:"carry all his things and find them fast",ok:true},
+  {t:"get a shinier backpack",why:"Ollie never said anything about shiny. Look at your clues!"},
+  {t:"have fewer arms",why:"His arms are part of who he is! We design FOR Ollie, we don't change him."}
+];
+const BLANK2=[
+  {t:"looks like a superstar",why:"Fun, but Ollie didn't ask for that."},
+  {t:"gets to school on time with a yummy lunch",ok:true},
+  {t:"never has to go to school",why:"Ha! But Ollie likes school."}
+];
+const IDEAS=["Backpack with 8 straps","Belt with 8 pouches","Shell cart on wheels","Pocket hat","Seahorse helper","Floating bubble bag","Glow-in-the-dark labels","Mini fridge for lunch","Snail taxi","Octo-vest with pockets","Bag that beeps to find stuff","Rainbow zipper map","Kelp basket","Robot crab butler","Jellyfish balloon carrier","Clam lunchbox"];
+const BASES={backpack:"Backpack",belt:"Belt",cart:"Cart"};
+const PARTS={
+  pockets:"8 pockets", labels:"Color labels", cooler:"Lunch cooler", wheels:"Wheels",
+  clock:"Alarm clock", stickers:"Star stickers", umbrella:"Umbrella", rocket:"Rocket boosters"
+};
+
+const fresh=()=>({stage:0,name:"",clues:[],asked:[],hmw:[null,null],tries:[[],[]],caught:[],own:[],fav:null,base:"backpack",parts:[],inv:"",tests:0,start:0,end:0});
+let S=fresh();
+let voice=true, sound=true;
+const $=s=>document.querySelector(s);
+const stage=$("#stage");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ---------- audio ---------- */
+let ac=null;
+function tone(f,d=.12,type="sine",delay=0,vol=.18){
+  if(!sound) return;
+  try{
+    ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    const o=ac.createOscillator(), g=ac.createGain(), t=ac.currentTime+delay;
+    o.type=type; o.frequency.setValueAtTime(f,t);
+    g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.001,t+d);
+    o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t+d+.02);
+  }catch(e){}
+}
+const sfx={
+  tap:()=>tone(660,.08,"triangle"),
+  good:()=>{tone(523,.12,"triangle");tone(659,.12,"triangle",.1);tone(784,.2,"triangle",.2)},
+  meh:()=>{tone(330,.15,"sine");tone(262,.22,"sine",.12)},
+  pop:()=>tone(900+Math.random()*400,.07,"square",0,.08),
+  win:()=>[523,659,784,1047,784,1047].forEach((f,i)=>tone(f,.18,"triangle",i*.12))
+};
+function say(txt){
+  if(!voice||!("speechSynthesis" in window)) return;
+  try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(txt); u.rate=1.02; u.pitch=1.35; speechSynthesis.speak(u);}catch(e){}
+}
+$("#tVoice").onclick=e=>{voice=!voice;e.currentTarget.setAttribute("aria-pressed",voice);if(!voice)try{speechSynthesis.cancel()}catch(_){}};
+$("#tSound").onclick=e=>{sound=!sound;e.currentTarget.setAttribute("aria-pressed",sound);sfx.tap()};
+
+/* ---------- art ---------- */
+function ollie(mood="happy",extra=""){
+  const mouths={
+    happy:'<path d="M84 104 Q100 122 116 104" stroke="#1E2748" stroke-width="4" fill="#fff" stroke-linecap="round"/>',
+    sad:'<path d="M86 114 Q100 102 114 114" stroke="#1E2748" stroke-width="4" fill="none" stroke-linecap="round"/>',
+    think:'<path d="M90 110 Q100 106 110 111" stroke="#1E2748" stroke-width="4" fill="none" stroke-linecap="round"/>',
+    wow:'<ellipse cx="100" cy="110" rx="7" ry="9" fill="#1E2748"/>'
+  };
+  let t="";
+  for(let i=0;i<8;i++){
+    const x=44+i*16, s=i<4?-1:1;
+    t+=`<path class="tent" d="M${x} 118 q ${s*-6} 22 ${s*2} 40 q ${s*8} 14 ${s*-4} 26" stroke="#FF6F59" stroke-width="13" fill="none" stroke-linecap="round"/>`;
+  }
+  const brows=mood==="sad"?'<path d="M68 64 l16 -6 M132 64 l-16 -6" stroke="#1E2748" stroke-width="4" stroke-linecap="round"/>':"";
+  return `<svg class="ollie ${extra}" viewBox="0 0 200 200" role="img" aria-label="Ollie the octopus looking ${mood}">
+    <g>${t}</g>
+    <path d="M100 26 C150 26 164 64 160 94 C156 122 132 132 100 132 C68 132 44 122 40 94 C36 64 50 26 100 26 Z" fill="#FF6F59" stroke="#1E2748" stroke-width="4"/>
+    <circle cx="70" cy="44" r="6" fill="#FFA08F"/><circle cx="134" cy="50" r="4" fill="#FFA08F"/><circle cx="124" cy="36" r="3" fill="#FFA08F"/>
+    <g class="eyes"><ellipse cx="80" cy="80" rx="12" ry="14" fill="#fff" stroke="#1E2748" stroke-width="3"/><ellipse cx="120" cy="80" rx="12" ry="14" fill="#fff" stroke="#1E2748" stroke-width="3"/>
+    <circle cx="${mood==="think"?84:82}" cy="${mood==="think"?76:83}" r="6" fill="#1E2748"/><circle cx="${mood==="think"?124:122}" cy="${mood==="think"?76:83}" r="6" fill="#1E2748"/></g>
+    ${brows}
+    <circle cx="64" cy="102" r="7" fill="#FF9DB0" opacity=".8"/><circle cx="136" cy="102" r="7" fill="#FF9DB0" opacity=".8"/>
+    ${mouths[mood]||mouths.happy}
+  </svg>`;
+}
+const ICON={
+  bag:'<svg viewBox="0 0 32 32"><rect x="6" y="8" width="20" height="21" rx="6" fill="#13A89E" stroke="#1E2748" stroke-width="2"/><path d="M11 8 q5 -7 10 0" fill="none" stroke="#1E2748" stroke-width="2"/><rect x="10" y="17" width="12" height="7" rx="2" fill="#fff" stroke="#1E2748" stroke-width="2"/></svg>',
+  eye:'<svg viewBox="0 0 32 32"><circle cx="13" cy="13" r="8" fill="#DDF1FC" stroke="#1E2748" stroke-width="2.5"/><path d="M19 19 l8 8" stroke="#1E2748" stroke-width="3.5" stroke-linecap="round"/></svg>',
+  sandwich:'<svg viewBox="0 0 32 32"><path d="M4 18 L16 6 L28 18 Z" fill="#FFC43D" stroke="#1E2748" stroke-width="2" stroke-linejoin="round"/><rect x="4" y="18" width="24" height="4" fill="#7ED957" stroke="#1E2748" stroke-width="2"/><rect x="4" y="22" width="24" height="4" rx="1" fill="#FFC43D" stroke="#1E2748" stroke-width="2"/></svg>',
+  q:'<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="#4A5378" stroke-width="2" stroke-dasharray="4 3"/><text x="16" y="21" text-anchor="middle" font-size="14" font-weight="800" fill="#4A5378">?</text></svg>'
+};
+const PICON={
+  backpack:ICON.bag,
+  belt:'<svg viewBox="0 0 32 32"><rect x="2" y="12" width="28" height="9" rx="3" fill="#8A5A3C" stroke="#1E2748" stroke-width="2"/><rect x="12" y="10" width="8" height="13" rx="2" fill="#FFC43D" stroke="#1E2748" stroke-width="2"/></svg>',
+  cart:'<svg viewBox="0 0 32 32"><rect x="5" y="9" width="22" height="14" rx="3" fill="#FFC43D" stroke="#1E2748" stroke-width="2"/><circle cx="10" cy="26" r="3.5" fill="#1E2748"/><circle cx="22" cy="26" r="3.5" fill="#1E2748"/><path d="M27 12 l3 -6" stroke="#1E2748" stroke-width="2.5" stroke-linecap="round"/></svg>',
+  pockets:'<svg viewBox="0 0 32 32">'+[0,1,2,3].map(i=>`<rect x="${3+(i%2)*14}" y="${4+Math.floor(i/2)*14}" width="11" height="11" rx="2" fill="#D5F3F0" stroke="#1E2748" stroke-width="2"/>`).join("")+'</svg>',
+  labels:'<svg viewBox="0 0 32 32"><path d="M4 8 h14 l8 8 -8 8 h-14 z" fill="#FF6F59" stroke="#1E2748" stroke-width="2" stroke-linejoin="round"/><circle cx="18" cy="16" r="2.5" fill="#fff"/></svg>',
+  cooler:'<svg viewBox="0 0 32 32"><rect x="4" y="8" width="24" height="18" rx="3" fill="#4DB6F0" stroke="#1E2748" stroke-width="2"/><path d="M16 11 v12 M11 14 l10 6 M21 14 l-10 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',
+  wheels:'<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="#1E2748"/><circle cx="16" cy="16" r="4" fill="#FFC43D"/></svg>',
+  clock:'<svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="11" fill="#fff" stroke="#1E2748" stroke-width="2.5"/><path d="M16 17 v-6 M16 17 l5 3" stroke="#1E2748" stroke-width="2.5" stroke-linecap="round"/><circle cx="7" cy="6" r="3" fill="#FF6F59"/><circle cx="25" cy="6" r="3" fill="#FF6F59"/></svg>',
+  stickers:'<svg viewBox="0 0 32 32"><path d="M16 3 l3.8 8 8.7 1 -6.4 6 1.7 8.6 -7.8 -4.4 -7.8 4.4 1.7 -8.6 -6.4 -6 8.7 -1 z" fill="#FFC43D" stroke="#1E2748" stroke-width="2" stroke-linejoin="round"/></svg>',
+  umbrella:'<svg viewBox="0 0 32 32"><path d="M3 16 a13 11 0 0 1 26 0 z" fill="#6C4FD8" stroke="#1E2748" stroke-width="2"/><path d="M16 16 v9 q0 4 -4 3" stroke="#1E2748" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>',
+  rocket:'<svg viewBox="0 0 32 32"><path d="M16 3 q7 6 6 17 h-12 q-1 -11 6 -17z" fill="#E7E9F2" stroke="#1E2748" stroke-width="2"/><path d="M12 21 l4 8 4 -8 z" fill="#FF6F59" stroke="#1E2748" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="12" r="2.5" fill="#4DB6F0"/></svg>'
+};
+function star(cx,cy,r,fill){let p=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5, rr=i%2?r*.45:r;p.push((cx+rr*Math.cos(a)).toFixed(1)+","+(cy+rr*Math.sin(a)).toFixed(1))}return `<polygon points="${p.join(" ")}" fill="${fill}" stroke="#1E2748" stroke-width="2" stroke-linejoin="round"/>`}
+function inventionSVG(){
+  const has=p=>S.parts.includes(p), b=S.base; let g="";
+  const colors=["#FF6F59","#FFC43D","#6C4FD8","#13A89E","#4DB6F0","#FF9DB0","#7ED957","#F28C28"];
+  if(has("umbrella")) g+=`<path d="M100 44 a60 34 0 0 1 120 0 z" fill="#6C4FD8" stroke="#1E2748" stroke-width="3"/><path d="M160 44 v26" stroke="#1E2748" stroke-width="3"/>`;
+  if(has("rocket")) g+=`<path d="M70 196 l10 34 10 -34z M230 196 l10 34 10 -34z" fill="#FF6F59" stroke="#1E2748" stroke-width="2.5" stroke-linejoin="round"/><rect x="66" y="120" width="28" height="78" rx="12" fill="#E7E9F2" stroke="#1E2748" stroke-width="3"/><rect x="226" y="120" width="28" height="78" rx="12" fill="#E7E9F2" stroke="#1E2748" stroke-width="3"/>`;
+  let slots=[];
+  if(b==="backpack"){
+    g+=`<path d="M112 90 q-24 40 -6 100 M208 90 q24 40 6 100" stroke="#0E7F78" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <rect x="100" y="70" width="120" height="150" rx="30" fill="#13A89E" stroke="#1E2748" stroke-width="3.5"/>
+        <path d="M100 118 v-18 a30 30 0 0 1 30 -30 h60 a30 30 0 0 1 30 30 v18 z" fill="#0E8C83" stroke="#1E2748" stroke-width="3.5"/>
+        <path d="M140 70 q20 -26 40 0" stroke="#1E2748" stroke-width="5" fill="none"/>`;
+    for(let i=0;i<8;i++) slots.push([108+(i%4)*27,128+Math.floor(i/4)*44,22,36]);
+  }else if(b==="belt"){
+    g+=`<rect x="20" y="118" width="280" height="40" rx="16" fill="#8A5A3C" stroke="#1E2748" stroke-width="3.5"/><rect x="146" y="110" width="28" height="56" rx="6" fill="#FFC43D" stroke="#1E2748" stroke-width="3.5"/>`;
+    for(let i=0;i<8;i++){const x=28+i*33+(i>=4?34:0)-(i>=4?0:0); slots.push([i<4?30+i*29:180+(i-4)*29,150,24,40]);}
+  }else{
+    g+=`<path d="M240 110 l40 -50" stroke="#1E2748" stroke-width="6" stroke-linecap="round"/><rect x="74" y="96" width="172" height="110" rx="14" fill="#FFC43D" stroke="#1E2748" stroke-width="3.5"/>
+        <circle cx="112" cy="216" r="16" fill="#1E2748"/><circle cx="208" cy="216" r="16" fill="#1E2748"/><circle cx="112" cy="216" r="5" fill="#fff"/><circle cx="208" cy="216" r="5" fill="#fff"/>`;
+    for(let i=0;i<8;i++) slots.push([88+(i%4)*38,106+Math.floor(i/4)*46,30,38]);
+  }
+  if(has("pockets")) slots.forEach(([x,y,w,h])=>{g+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="#fff" stroke="#1E2748" stroke-width="2.5"/><path d="M${x} ${y+9} h${w}" stroke="#1E2748" stroke-width="2"/>`});
+  if(has("labels")){
+    const pts=has("pockets")?slots:slots.filter((_,i)=>i%3===0);
+    pts.forEach(([x,y,w],i)=>{g+=`<circle cx="${x+w/2}" cy="${y+22}" r="6" fill="${colors[i%8]}" stroke="#1E2748" stroke-width="2"/>`});
+  }
+  if(has("cooler")) g+=`<rect x="238" y="150" width="62" height="50" rx="8" fill="#4DB6F0" stroke="#1E2748" stroke-width="3"/><path d="M269 158 v34 M254 166 l30 18 M284 166 l-30 18" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`;
+  if(has("wheels")&&b!=="cart") g+=`<circle cx="130" cy="232" r="15" fill="#1E2748"/><circle cx="190" cy="232" r="15" fill="#1E2748"/><circle cx="130" cy="232" r="5" fill="#FFC43D"/><circle cx="190" cy="232" r="5" fill="#FFC43D"/>`;
+  if(has("wheels")&&b==="cart") g+=`<circle cx="160" cy="216" r="16" fill="#1E2748"/><circle cx="160" cy="216" r="5" fill="#FFC43D"/>`;
+  if(has("clock")) g+=`<circle cx="52" cy="62" r="26" fill="#fff" stroke="#1E2748" stroke-width="3.5"/><path d="M52 62 v-14 M52 62 l10 6" stroke="#1E2748" stroke-width="3.5" stroke-linecap="round"/><circle cx="34" cy="38" r="7" fill="#FF6F59" stroke="#1E2748" stroke-width="2"/><circle cx="70" cy="38" r="7" fill="#FF6F59" stroke="#1E2748" stroke-width="2"/>`;
+  if(has("stickers")) g+=star(250,84,14,"#FFC43D")+star(40,200,11,"#FF9DB0")+star(282,226,10,"#7ED957");
+  const nm=S.inv||"My invention";
+  return `<svg viewBox="0 0 320 270" role="img" aria-label="Drawing of ${esc(nm)}">${g}<text x="160" y="262" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="800" font-size="18" fill="#1E2748">${esc(nm)}</text></svg>`;
+}
+
+/* ---------- chrome ---------- */
+function drawSteps(){
+  $("#steps").innerHTML=STEPS.map((s,i)=>{
+    const st=i+1<S.stage?"done":i+1===S.stage?"on":"";
+    return `<li class="${st}" data-c="${s.c}"><b>${s.n}</b><span>${s.k}</span></li>`;
+  }).join("");
+}
+function go(n){S.stage=n; if(n===6&&!S.end)S.end=Date.now(); drawSteps(); render(); window.scrollTo({top:0,behavior:"smooth"});}
+function render(){
+  stopIdeate();
+  [intro,empathize,define,ideate,prototype,test,finish][S.stage]();
+}
+function ollieBox(mood,text,extra){
+  return `<div class="ollie-box"><div class="bubble" id="bubble" aria-live="polite">${esc(text)}</div>${ollie(mood,extra)}<div class="muted" style="font-weight:800;font-size:14px">Ollie, age 8 (arms: also 8)</div></div>`;
+}
+function setOllie(mood,text,bounce){
+  const box=$(".ollie-box"); if(!box) return;
+  box.querySelector("#bubble").textContent=text;
+  const old=box.querySelector("svg.ollie"); const t=document.createElement("div"); t.innerHTML=ollie(mood,bounce?"bounce":""); old.replaceWith(t.firstChild);
+  say(text);
+}
+function clueBoard(){
+  return `<div class="clues">${Object.keys(CLUES).map(k=>S.clues.includes(k)?`<div class="clue found">${ICON[CLUES[k].icon]}${CLUES[k].label}</div>`:`<div class="clue">${ICON.q}Clue not found yet</div>`).join("")}</div>`;
+}
+
+/* ---------- screens ---------- */
+function intro(){
+  stage.innerHTML=`<section class="card"><div class="grid">
+    ${ollieBox("sad","Hi! I'm Ollie. My backpack is a total mess. Can you design something to help me?")}
+    <div>
+      <span class="eyebrow">A 5-minute design adventure</span>
+      <h1>Be a designer for Ollie!</h1>
+      <p class="lead">Designers don't just draw cool stuff. They solve problems <b>for real people</b> (and octopuses). The secret recipe is called <b>design thinking</b>, and it has five steps:</p>
+      <div class="map">${STEPS.map((s,i)=>`<div style="background:var(--${s.c}-soft)"><b>${s.n}</b>${["Listen to feelings","Choose the real problem","Think of LOTS of ideas","Build a quick model","Try it and improve"][i]}</div>`).join("")}</div>
+      <label class="label" for="kidname">What's your designer name?</label>
+      <div class="namebox"><input id="kidname" maxlength="20" placeholder="Type your name" value="${esc(S.name)}" autocomplete="off"><button class="btn" id="startBtn">Let's go!</button></div>
+      <p class="muted" style="margin-top:10px;font-size:14px">Tip: turn your sound on. Ollie can talk!</p>
+    </div></div></section>`;
+  const inp=$("#kidname");
+  const start=()=>{S.name=inp.value.trim()||"Designer"; S.start=Date.now(); sfx.good(); go(1); };
+  $("#startBtn").onclick=start; inp.onkeydown=e=>{if(e.key==="Enter")start()};
+}
+
+function empathize(){
+  const found=S.clues.length;
+  stage.innerHTML=`<section class="card"><div class="grid">
+    ${ollieBox("sad","Hi "+S.name+"! Ask me anything.")}
+    <div>
+      <span class="eyebrow" style="background:var(--coral-soft)">Step 1 · Empathize</span>
+      <h2>Walk in Ollie's shoes (all eight of them)</h2>
+      <p>Great designers start by <b>listening</b>, not by drawing. Tap a question to ask Ollie. Find all 3 clues about how he feels.</p>
+      <div id="qs">${QUESTIONS.map((q,i)=>`<button class="q ${S.asked.includes(i)?(q.good?"good used":"bad used"):""}" data-i="${i}">${esc(q.t)}</button>`).join("")}</div>
+      <div id="tipbox"></div>
+      <div id="board">${clueBoard()}</div>
+      <div class="footer-row"><span class="count" id="cc">${found} of 3 clues found</span><button class="btn" id="next" ${found<3?"disabled":""}>Next: Define</button></div>
+    </div></div></section>`;
+  say("Step one. Empathize. Ask Ollie questions to find three clues.");
+  stage.querySelectorAll(".q").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i, q=QUESTIONS[i];
+    if(!S.asked.includes(i)) S.asked.push(i);
+    b.classList.add(q.good?"good":"bad","used");
+    if(q.good){
+      if(!S.clues.includes(q.clue)) S.clues.push(q.clue);
+      sfx.good(); setOllie(S.clues.length===3?"think":"sad",q.a);
+      $("#tipbox").innerHTML=`<div class="tip">Clue found: ${esc(CLUES[q.clue].label)}!</div>`;
+    }else{
+      sfx.meh(); setOllie("think",q.a);
+      $("#tipbox").innerHTML=`<div class="tip">${esc(q.tip)}</div>`;
+    }
+    $("#board").innerHTML=clueBoard();
+    $("#cc").textContent=S.clues.length+" of 3 clues found";
+    if(S.clues.length===3){$("#next").disabled=false; setTimeout(()=>{if(S.stage===1&&$("#tipbox"))$("#tipbox").innerHTML=`<div class="tip">You found every clue! That's empathy: understanding how someone feels.</div>`},2600)}
+  });
+  $("#next").onclick=()=>{sfx.tap();go(2)};
+}
+
+function define(){
+  const pick=(arr,idx)=>idx==null?"______":arr[idx].t;
+  const ok=S.hmw[0]!=null&&BLANK1[S.hmw[0]].ok&&S.hmw[1]!=null&&BLANK2[S.hmw[1]].ok;
+  stage.innerHTML=`<section class="card"><div class="grid">
+    ${ollieBox("think","So... what's my REAL problem?")}
+    <div>
+      <span class="eyebrow">Step 2 · Define</span>
+      <h2>Turn clues into one clear challenge</h2>
+      <p>Designers write a <b>"How might we…"</b> question. It keeps everyone focused on the real problem. Use your clues to fill in the blanks.</p>
+      ${clueBoard()}
+      <p class="label" style="margin-top:16px">Your challenge:</p>
+      <div class="sentence">How might we help Ollie <span class="blank ${S.hmw[0]!=null&&BLANK1[S.hmw[0]].ok?"ok":""}">${esc(pick(BLANK1,S.hmw[0]))}</span> so that he <span class="blank ${S.hmw[1]!=null&&BLANK2[S.hmw[1]].ok?"ok":""}">${esc(pick(BLANK2,S.hmw[1]))}</span>?</div>
+      <p class="label">Blank 1: help Ollie…</p>
+      <div class="chips">${BLANK1.map((o,i)=>`<button class="chip ${S.hmw[0]===i?"sel":""} ${S.tries[0].includes(i)&&!o.ok?"no":""}" data-b="0" data-i="${i}">${esc(o.t)}</button>`).join("")}</div>
+      <p class="label">Blank 2: so that he…</p>
+      <div class="chips">${BLANK2.map((o,i)=>`<button class="chip ${S.hmw[1]===i?"sel":""} ${S.tries[1].includes(i)&&!o.ok?"no":""}" data-b="1" data-i="${i}">${esc(o.t)}</button>`).join("")}</div>
+      <div id="tipbox"></div>
+      <div class="footer-row"><button class="btn ghost" id="back">Back</button><button class="btn" id="next" ${ok?"":"disabled"}>Next: Ideate</button></div>
+    </div></div></section>`;
+  if(!S.hmw.some(x=>x!=null)) say("Step two. Define. Fill in the How might we question using your clues.");
+  stage.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
+    const b=+c.dataset.b,i=+c.dataset.i,o=(b?BLANK2:BLANK1)[i];
+    S.hmw[b]=i; if(!S.tries[b].includes(i))S.tries[b].push(i);
+    if(o.ok) sfx.good(); else sfx.meh();
+    define();
+    const both=S.hmw[0]!=null&&BLANK1[S.hmw[0]].ok&&S.hmw[1]!=null&&BLANK2[S.hmw[1]].ok;
+    if(!o.ok){ $("#tipbox").innerHTML=`<div class="tip">${esc(o.why)}</div>`; setOllie("think",o.why); }
+    else if(both){ const m="Yes! That's exactly my problem!"; $("#tipbox").innerHTML=`<div class="tip">Now everyone knows the target. On to ideas!</div>`; setOllie("happy",m,true); }
+  });
+  $("#back").onclick=()=>go(1);
+  $("#next").onclick=()=>{sfx.tap();go(3)};
+}
+
+/* ideate with floating bubbles */
+let ideaTimer=null, raf=null, spawnT=null;
+function stopIdeate(){clearInterval(ideaTimer);clearInterval(spawnT);cancelAnimationFrame(raf);ideaTimer=spawnT=raf=null;}
+function ideate(){
+  const done=S.fav!=null || S._ideaDone;
+  stage.innerHTML=`<section class="card">
+    <span class="eyebrow" style="background:var(--grape-soft)">Step 3 · Ideate</span>
+    <h2>Idea storm! Catch as many as you can</h2>
+    <p>This is the time for <b>lots</b> of ideas, even silly ones. Silly ideas often lead to great ones. Tap the bubbles to catch ideas, or type your own.</p>
+    <div class="hud"><div class="rules"><span>Go for lots</span><span>Wild ideas welcome</span><span>No "that's bad" yet</span></div>
+      <div class="row"><span class="count" id="ic">${S.caught.length+S.own.length} ideas</span><span class="timer" id="tm">0:25</span></div></div>
+    <div class="sky" id="sky"></div>
+    <form class="own" id="ownf"><input id="owni" maxlength="40" placeholder="Add your own idea…" autocomplete="off"><button class="btn ghost" type="submit">Add</button></form>
+    <div id="favwrap"></div>
+    <div class="footer-row"><button class="btn ghost" id="back">Back</button><button class="btn" id="next" ${S.fav!=null?"":"disabled"}>Next: Prototype</button></div>
+  </section>`;
+  $("#back").onclick=()=>go(2);
+  $("#next").onclick=()=>{sfx.tap();go(4)};
+  $("#ownf").onsubmit=e=>{e.preventDefault();const v=$("#owni").value.trim();if(!v)return;S.own.push(v);$("#owni").value="";sfx.pop();updCount();if(S._ideaDone)showFav();};
+  if(done){ showFav(); return; }
+  const sky=$("#sky");
+  sky.innerHTML=`<div class="center-msg" id="ready"><div style="font-family:var(--display);font-weight:800;font-size:24px">Ready? You have 25 seconds.</div><button class="btn" id="goStorm" style="background:var(--grape)">Start the storm</button></div>`;
+  say("Step three. Ideate! Catch as many ideas as you can. Wild ideas are welcome.");
+  $("#goStorm").onclick=()=>{ sfx.good(); startStorm(); };
+}
+function updCount(){const c=$("#ic"); if(c)c.textContent=(S.caught.length+S.own.length)+" ideas";}
+function startStorm(){
+  const sky=$("#sky"); sky.innerHTML="";
+  let left=25, bubbles=[], pool=[...IDEAS].sort(()=>Math.random()-.5), pi=0;
+  const W=()=>sky.clientWidth, H=()=>sky.clientHeight;
+  function spawn(){
+    const txt=pool[pi++%pool.length];
+    const b=document.createElement("button"); b.className="idea"; b.textContent=txt; b.type="button";
+    sky.appendChild(b);
+    const bw=b.offsetWidth; const x=Math.random()*Math.max(4,W()-bw-8)+4;
+    const o={el:b,x,y:H()+4,v:38+Math.random()*30,ph:Math.random()*6};
+    b.style.left=x+"px"; b.style.top=o.y+"px";
+    b.onclick=()=>{ if(!S.caught.includes(txt))S.caught.push(txt); b.classList.add("popped"); sfx.pop(); updCount(); o.dead=true; setTimeout(()=>b.remove(),350); };
+    bubbles.push(o);
+  }
+  let last=performance.now();
+  function loop(t){
+    const dt=Math.min(.05,(t-last)/1000); last=t;
+    bubbles.forEach(o=>{ if(o.dead)return; o.y-=o.v*dt; o.ph+=dt*2; o.el.style.top=o.y+"px"; o.el.style.left=(o.x+Math.sin(o.ph)*10)+"px"; if(o.y<-50){o.dead=true;o.el.remove();} });
+    bubbles=bubbles.filter(o=>!o.dead);
+    raf=requestAnimationFrame(loop);
+  }
+  spawn(); spawnT=setInterval(spawn,850); raf=requestAnimationFrame(loop);
+  ideaTimer=setInterval(()=>{
+    left--; const tm=$("#tm"); if(tm) tm.textContent="0:"+String(left).padStart(2,"0");
+    if(left<=5&&left>0) tone(880,.06,"square",0,.06);
+    if(left<=0){ stopIdeate(); S._ideaDone=true; sky.innerHTML=""; sfx.win(); showFav(); }
+  },1000);
+}
+function showFav(){
+  const sky=$("#sky"); const tm=$("#tm"); if(tm) tm.textContent="0:00";
+  const n=S.caught.length+S.own.length;
+  if(sky) sky.innerHTML=`<div class="center-msg"><div style="font-family:var(--display);font-weight:800;font-size:30px">Time's up! ${n} idea${n===1?"":"s"}!</div><div style="font-weight:700">${n>=6?"Wow, what a storm!":"Nice catching!"} Now pick the one idea you want to build.</div></div>`;
+  let list=[...S.own,...S.caught];
+  if(list.length<3) list=[...new Set([...list,"Backpack with 8 straps","Belt with 8 pouches","Shell cart on wheels"])];
+  $("#favwrap").innerHTML=`<p class="label">Pick your favorite idea to build:</p><div class="chips">${list.map(t=>`<button class="chip ${S.fav===t?"sel":""}" data-t="${esc(t)}">${esc(t)}</button>`).join("")}</div>`;
+  $("#favwrap").querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
+    S.fav=c.dataset.t; sfx.tap(); showFav(); $("#next").disabled=false;
+    const low=S.fav.toLowerCase(); S.base=/belt|vest|pouch/.test(low)?"belt":/cart|wheel|taxi|basket/.test(low)?"cart":"backpack";
+    say("Great pick! "+S.fav);
+  });
+}
+
+function prototype(){
+  if(!S.inv) S.inv=(S.name.split(" ")[0])+"'s "+({backpack:"Octo-Pack",belt:"Octo-Belt",cart:"Octo-Cart"})[S.base];
+  stage.innerHTML=`<section class="card"><div class="grid">
+    <div>
+      <div class="canvas" id="canvas">${inventionSVG()}</div>
+      <p class="muted" style="margin-top:10px;font-size:14px;font-weight:700">Your idea: ${esc(S.fav||"a super backpack")}${S.tests?` · Version ${S.tests+1}`:""}</p>
+    </div>
+    <div>
+      <span class="eyebrow" style="background:var(--teal-soft)">Step 4 · Prototype</span>
+      <h2>Build a quick model</h2>
+      <p>A prototype is a <b>fast, rough version</b>, like one made of cardboard and tape. It doesn't have to be perfect. It just has to be good enough to test!</p>
+      <label class="label" for="invname">Name your invention</label>
+      <input class="namefield" id="invname" maxlength="26" value="${esc(S.inv)}" autocomplete="off">
+      <p class="label">Pick a base</p>
+      <div class="bases">${Object.keys(BASES).map(k=>`<button class="tile" data-base="${k}" aria-pressed="${S.base===k}">${PICON[k]}${BASES[k]}</button>`).join("")}</div>
+      <p class="label">Add parts (tap to add or remove)</p>
+      <div class="parts">${Object.keys(PARTS).map(k=>`<button class="tile" data-part="${k}" aria-pressed="${S.parts.includes(k)}">${PICON[k]}${PARTS[k]}</button>`).join("")}</div>
+      <div class="tip" style="margin-top:12px">Look back at Ollie's 3 clues. Which parts would help him?</div>
+      <div class="footer-row"><button class="btn ghost" id="back">Back</button><button class="btn" id="next" ${S.parts.length?"":"disabled"}>Test it with Ollie</button></div>
+    </div></div></section>`;
+  if(!S.tests) say("Step four. Prototype! Build a quick model of your idea.");
+  const redraw=()=>{$("#canvas").innerHTML=inventionSVG(); $("#next").disabled=!S.parts.length;};
+  $("#invname").oninput=e=>{S.inv=e.target.value; redraw();};
+  stage.querySelectorAll("[data-base]").forEach(b=>b.onclick=()=>{S.base=b.dataset.base; sfx.tap(); stage.querySelectorAll("[data-base]").forEach(x=>x.setAttribute("aria-pressed",x===b)); redraw();});
+  stage.querySelectorAll("[data-part]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.part, on=S.parts.includes(k);
+    S.parts=on?S.parts.filter(x=>x!==k):[...S.parts,k]; b.setAttribute("aria-pressed",!on);
+    on?tone(440,.08,"triangle"):sfx.pop(); redraw();
+  });
+  $("#back").onclick=()=>go(3);
+  $("#next").onclick=()=>{S.tests++; sfx.tap(); go(5)};
+}
+
+function test(){
+  const has=p=>S.parts.includes(p);
+  const checks=[
+    {k:"carry",ok:has("pockets"),yes:"All 8 arms can put something away. Nothing falls out!",no:"My stuff still falls out... I need a spot for each of my 8 things."},
+    {k:"find",ok:has("labels"),yes:"Blue for books, red for pencils. I find everything super fast!",no:"I'm still digging around for my flute. How will I know where things are?"},
+    {k:"lunch",ok:has("cooler"),yes:"My sandwich is cool and crunchy. Yum!",no:"My lunch is still squished and soggy."}
+  ];
+  const bonus={wheels:"Rolling it is easy on my arms!",clock:"Ding ding! Now I leave home on time.",stickers:"The stars make it look so ME!",umbrella:"I stay dry when it rains!",rocket:"Wheee! ...but my teacher says no rockets in the hallway."};
+  const passed=checks.filter(c=>c.ok).length, all=passed===3;
+  stage.innerHTML=`<section class="card"><div class="grid">
+    <div>
+      ${ollieBox("think","Ooh, let me try the "+(S.inv||"invention")+"...")}
+      <div class="canvas" style="margin-top:12px">${inventionSVG()}</div>
+    </div>
+    <div>
+      <span class="eyebrow" style="background:var(--sky-soft)">Step 5 · Test</span>
+      <h2>Ollie tries it out</h2>
+      <p>Now we <b>watch and listen</b>. Does your design fix Ollie's clues? Testing isn't about passing or failing. It's about <b>learning</b>.</p>
+      <ul class="checks" id="checks"><li class="bonus"><span class="mark">…</span>Ollie is testing${S.tests>1?" version "+S.tests:""}…</li></ul>
+      <div id="verdict"></div>
+    </div></div></section>`;
+  say("Step five. Test. Let's see what Ollie thinks.");
+  setTimeout(()=>{
+    let items=checks.map((c,i)=>`<li class="${c.ok?"yes":"no"}" style="animation-delay:${i*.35}s"><span class="mark">${c.ok?"✓":"!"}</span><span><b>${esc(CLUES[c.k].label)}.</b> "${esc(c.ok?c.yes:c.no)}"</span></li>`);
+    Object.keys(bonus).filter(has).forEach((k,i)=>items.push(`<li class="bonus" style="animation-delay:${(3+i)*.35}s"><span class="mark">+</span><span><b>${esc(PARTS[k])}:</b> "${esc(bonus[k])}"</span></li>`));
+    $("#checks").innerHTML=items.join("");
+    if(all){
+      setOllie("happy","I LOVE it! You solved my problem! Thank you, "+S.name+"!",true); sfx.win(); confetti();
+      $("#verdict").innerHTML=`<div class="tip">3 out of 3 clues solved${S.tests>1?` after ${S.tests} tries. That's how real designers work: build, test, improve!`:" on the first try. Amazing!"}</div>
+        <div class="footer-row"><button class="btn ghost" id="again">Tweak it more</button><button class="btn" id="next">Get my certificate</button></div>`;
+      $("#next").onclick=()=>{sfx.tap();go(6)};
+    }else{
+      const miss=checks.find(c=>!c.ok);
+      setOllie("sad","It's a good start! But... "+miss.no); sfx.meh();
+      $("#verdict").innerHTML=`<div class="tip">${passed} out of 3 clues solved. No problem! Designers go back, change the prototype, and test again. That loop is called <b>iterating</b>.</div>
+        <div class="footer-row"><button class="btn ghost" id="skip">Finish anyway</button><button class="btn" id="again">Improve my design</button></div>`;
+      $("#skip").onclick=()=>go(6);
+    }
+    $("#again").onclick=()=>{sfx.tap();go(4)};
+  },1400);
+}
+
+function finish(){
+  const secs=Math.max(1,Math.round(((S.end||Date.now())-S.start)/1000));
+  const time=Math.floor(secs/60)+":"+String(secs%60).padStart(2,"0");
+  const ideas=S.caught.length+S.own.length;
+  stage.innerHTML=`<section class="card"><div class="grid">
+    ${ollieBox("happy","You're a real design thinker now! Try it with someone at home.","bounce")}
+    <div>
+      <div class="cert">
+        <span class="eyebrow">Official certificate</span>
+        <div class="big">${esc(S.name)}</div>
+        <div style="font-family:var(--display);font-weight:800;font-size:22px">is a Certified Design Thinker</div>
+        <p class="muted" style="margin:6px auto 0">for inventing <b>${esc(S.inv||"a super bag")}</b> for Ollie the octopus</p>
+        <div class="stats"><div>${S.clues.length} clues found</div><div>${ideas} ideas caught</div><div>${S.tests} test${S.tests===1?"":"s"}</div><div>Time ${time}</div></div>
+      </div>
+      <div class="recap">
+        <div style="background:var(--coral-soft)"><b>Empathize:</b> You listened to Ollie and asked about HIS life, not your ideas.</div>
+        <div style="background:var(--sun-soft)"><b>Define:</b> You turned clues into one "How might we…" challenge.</div>
+        <div style="background:var(--grape-soft)"><b>Ideate:</b> You caught ${ideas} ideas, because more ideas means better ideas.</div>
+        <div style="background:var(--teal-soft)"><b>Prototype:</b> You built a quick, rough model instead of waiting for perfect.</div>
+        <div style="background:var(--sky-soft)"><b>Test:</b> You let Ollie try it${S.tests>1?", then improved it "+(S.tests-1)+" time"+(S.tests>2?"s":""):""}. Feedback is a gift!</div>
+      </div>
+      <div class="tip" style="margin-top:12px"><b>Try it at home:</b> Ask someone in your family, "What's the hardest part of your morning?" Then invent something to help them!</div>
+      <div class="footer-row"><span></span><button class="btn" id="replay">Play again</button></div>
+    </div></div></section>`;
+  say("Congratulations "+S.name+"! You are a certified design thinker!");
+  confetti();
+  $("#replay").onclick=()=>{S=fresh(); drawSteps(); go(0);};
+}
+
+/* ---------- confetti ---------- */
+function confetti(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c=$("#confetti"), x=c.getContext("2d"); c.width=innerWidth; c.height=innerHeight;
+  const cols=["#FF6F59","#FFC43D","#6C4FD8","#13A89E","#4DB6F0","#FF9DB0"];
+  let ps=Array.from({length:140},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,vx:(Math.random()-.5)*3,vy:2+Math.random()*3,r:Math.random()*6.28,s:6+Math.random()*6,c:cols[Math.random()*6|0]}));
+  let f=0;
+  (function step(){
+    x.clearRect(0,0,c.width,c.height);
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore();});
+    if(++f<220) requestAnimationFrame(step); else x.clearRect(0,0,c.width,c.height);
+  })();
+}
+
+/* ---------- boot ---------- */
+function start(data){
+  if(data&&data.S){ S=Object.assign(fresh(),data.S); if(S.stage===3&&S.fav==null) S._ideaDone=true; }
+  drawSteps(); render();
+}
+try{ window.claude?.hot?.snapshot?.(()=>({S})); }catch(e){}
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+})();
+</script>
+
+</body></html>
