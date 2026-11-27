@@ -813,6 +813,14 @@ section {
     margin-bottom: 1rem;
 }
 
+.contact-details {
+    min-width: 0;
+}
+
+.contact-details a {
+    overflow-wrap: anywhere;
+}
+
 .contact-info-panel p {
     color: var(--text-light);
     margin-bottom: 2rem;
